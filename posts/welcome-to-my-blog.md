@@ -12,5 +12,9 @@ I plan to write about:
 * Front-end architecture and UI/UX design.
 * Performance optimization.
 * Back-end systems, API design, and Database Management.
+* Latest trends in technology.
+* Also, I will be sharing my thoughts on various topics on LLM, AI, and their impact on our lives.
+
+One more thing, this blog will also host my previous blog posts from wordpress.com.
 
 So grab a cup of coffee and stick around. There's plenty more to come!
