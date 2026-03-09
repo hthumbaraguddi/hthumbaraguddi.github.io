@@ -86,5 +86,325 @@
         "datetime": "2021-10-14",
         "tag": "Angular2000",
         "excerpt": "Angular#1 \n Adding in angular is quit easy and Just running following command in terminal: \n ng generate component new-component-name \n But many a..."
+    },
+    {
+        "id": "my-first-r-shiny-project",
+        "title": "My First R-Shiny Project",
+        "date": "September 28, 2021",
+        "datetime": "2021-09-28",
+        "tag": "Article",
+        "excerpt": "Updated my R-Shiny Project:  https://harshaprojects.shinyapps.io/pianalytics/"
+    },
+    {
+        "id": "git-editing-the-older-commited-messages",
+        "title": "GIT: Editing the older commited messages",
+        "date": "April 1, 2021",
+        "datetime": "2021-04-01",
+        "tag": "C Sharp",
+        "excerpt": "git rebase -i HEAD~<number of commit messages>\nnow you and change pick to revert\nclose the editor. \nGit will open another winodow where one can enter..."
+    },
+    {
+        "id": "intro-to-factors-in-r",
+        "title": "Intro to Factors in R",
+        "date": "March 23, 2021",
+        "datetime": "2021-03-23",
+        "tag": "C Sharp",
+        "excerpt": "> Grades<-c(\"Trainee\",\"SystemEngineer\",\"Analyst\",\"JuniorConsultant\")\r\n> GradesFactor <-factor(Grades) ##By default Grades alphabetical order. \r\n>..."
+    },
+    {
+        "id": "order-of-coercion-of-data-types",
+        "title": "Order of Coercion of Data Types",
+        "date": "March 21, 2021",
+        "datetime": "2021-03-21",
+        "tag": "Article",
+        "excerpt": "Generally order of Coercion for data types is character > complex > numeric > integer > logical"
+    },
+    {
+        "id": "matrix-in-r",
+        "title": "MATRIX in R",
+        "date": "March 17, 2020",
+        "datetime": "2020-03-17",
+        "tag": "R",
+        "excerpt": "Here is a very simple example of Matrix creation in R"
+    },
+    {
+        "id": "you-don-t-see-non",
+        "title": "You don\u2019t see NON;)",
+        "date": "August 16, 2019",
+        "datetime": "2019-08-16",
+        "tag": "C Sharp",
+        "excerpt": "lenToCompare = len(string)-len(sub_string)\nprint(sum([1 for i in range(lenToCompare+1) if string[i:i+len(sub_string)]== sub_string])\n \n string =..."
+    },
+    {
+        "id": "exploring-power-of-join",
+        "title": "Exploring power of JOIN",
+        "date": "August 15, 2019",
+        "datetime": "2019-08-15",
+        "tag": "Python",
+        "excerpt": "r, c = map(int,input().split())\npattern = [('.^.'*(2*i + 1)).center(c, '*') for i in range(r//2)]\nprint('\\n'.join(pattern + ['PYTHON'.center(c, '*')]..."
+    },
+    {
+        "id": "numpy-notes",
+        "title": "numpy Notes",
+        "date": "August 11, 2019",
+        "datetime": "2019-08-11",
+        "tag": "Python",
+        "excerpt": "Link to my numpy Notes on Git:  https://github.com/HarshaProjects/PythonTutor/blob/master/NumpyNotes.ipynb"
+    },
+    {
+        "id": "string-weaving-in-python",
+        "title": "String Weaving in Python",
+        "date": "March 14, 2019",
+        "datetime": "2019-03-14",
+        "tag": "Python",
+        "excerpt": "I am trying functionalities and trying to record here. Here I am trying to weave two strings. Important takeaway are chain.form_iterable from..."
+    },
+    {
+        "id": "python-certificate",
+        "title": "Python Certificate",
+        "date": "December 10, 2018",
+        "datetime": "2018-12-10",
+        "tag": "Python certificate",
+        "excerpt": "No excerpt available."
+    },
+    {
+        "id": "python-basics",
+        "title": "Python Basics",
+        "date": "December 2, 2018",
+        "datetime": "2018-12-02",
+        "tag": "Python",
+        "excerpt": "Experiments with Dictionary: Here is a Dict showing gross income of a movie world wide. Lets do some filter, get all regions where movie revenue is..."
+    },
+    {
+        "id": "locking-critical-section-by-an-object-used-by-multiplethreads",
+        "title": "Locking critical section by an object used by multiplethreads",
+        "date": "February 15, 2017",
+        "datetime": "2017-02-15",
+        "tag": "C Sharp",
+        "excerpt": "Yesterday, In one of the discussion, there was an interesting question about threading. What is the expected result if you have multiple thread..."
+    },
+    {
+        "id": "wpf-performance-suite",
+        "title": "WPF Performance Suite",
+        "date": "February 4, 2017",
+        "datetime": "2017-02-04",
+        "tag": "C Sharp",
+        "excerpt": "While reading more about the Rendercapability Tier, I bump into couple article where they mentioned about the WPF Performance Suite which comes with..."
+    },
+    {
+        "id": "wpf-rendering-tier",
+        "title": "WPF Rendering Tier",
+        "date": "January 31, 2017",
+        "datetime": "2017-01-31",
+        "tag": "C Sharp",
+        "excerpt": "As we all know WPF uses DirectX for rendering through MILCore. Rendering Tier will tell us whether Hardware accelaration is in use. i.e,..."
+    },
+    {
+        "id": "clr-md-analyzing-live-process",
+        "title": "CLR MD \u2014 Analyzing Live Process",
+        "date": "December 29, 2015",
+        "datetime": "2015-12-29",
+        "tag": "C Sharp",
+        "excerpt": "As we all know, there are many ways to analyze the application dump and also Live process. Most of us already using commercially available profilers..."
+    },
+    {
+        "id": "yet-another-blog-on-bdd",
+        "title": "Yet another Blog on BDD",
+        "date": "December 8, 2015",
+        "datetime": "2015-12-08",
+        "tag": "C Sharp",
+        "excerpt": "Here I am documenting BDD and This experiment is more like setting up BDD using SpecFlow in Visual Studio 2013. One should be able to set up BDD in..."
+    },
+    {
+        "id": "multi-core-jitting",
+        "title": "Multi \u2013 Core Jitting",
+        "date": "December 21, 2014",
+        "datetime": "2014-12-21",
+        "tag": "C Sharp",
+        "excerpt": "As we all know, application start up is crucial and minimizing lunching time\u00a0 is a challenging and interesting. Usually, startup is \u00a0processed behind..."
+    },
+    {
+        "id": "trader-app-with-tdd",
+        "title": "Trader app with TDD",
+        "date": "August 31, 2014",
+        "datetime": "2014-08-31",
+        "tag": "WordPress",
+        "excerpt": "I have uploaded an application with TDD. I am still working on the same. source code is available at :  https://github.com/HarshaProjects/TraderApp"
+    },
+    {
+        "id": "getting-property-method-name",
+        "title": "Getting Property/Method Name",
+        "date": "August 27, 2014",
+        "datetime": "2014-08-27",
+        "tag": "C Sharp",
+        "excerpt": "Hope you are using\u00a0INotifyPropertyChanged and also implemented same. When we are raising the event, we also need to supply the property name, usually..."
+    },
+    {
+        "id": "simple-mvvm-application",
+        "title": "Simple MVVM Application",
+        "date": "August 26, 2014",
+        "datetime": "2014-08-26",
+        "tag": "C Sharp",
+        "excerpt": "I have added a MVVM Example in GitHub:  https://github.com/HarshaProjects/LoginScreen  This simple project is an implementation of Log-in Screen in..."
+    },
+    {
+        "id": "msdn-magazine-topics",
+        "title": "MSDN Magazine Topics",
+        "date": "March 9, 2011",
+        "datetime": "2011-03-09",
+        "tag": "Design Patterns",
+        "excerpt": "Hello, How are you doing. Here is Good Collection of articles on Design Patterns from MSDN  http://msdn.microsoft.com/en-us/magazine/cc159273.aspx ..."
+    },
+    {
+        "id": "head-first-ooad",
+        "title": "Head First OOAD",
+        "date": "September 10, 2010",
+        "datetime": "2010-09-10",
+        "tag": "C Sharp code",
+        "excerpt": "I am going through Head First OOAD Book. Its really nice book to learn about OO concepts. \u00a0Very nicely explained the concept through Java code. \u00a0Here..."
+    },
+    {
+        "id": "resize-writeable-bitmap-writeablebitmap-in-wpf",
+        "title": "Resize Writeable Bitmap / WriteableBitmap in WPF",
+        "date": "August 30, 2010",
+        "datetime": "2010-08-30",
+        "tag": "C Sharp",
+        "excerpt": "I have just started\u00a0working on WPF and exploring image related features of WPF.\u00a0 Couple of days back, while I was working on image resize and fast..."
+    },
+    {
+        "id": "patterns-practices-catalog-by-year",
+        "title": "patterns & practices Catalog By Year",
+        "date": "June 29, 2010",
+        "datetime": "2010-06-29",
+        "tag": "patterns &amp; practices",
+        "excerpt": "Here is the article on Patterns and Practices catalog by Year. Take a look at article from JD Meier. ..."
+    },
+    {
+        "id": "image-display-using-wpf",
+        "title": "Image Display using WPF",
+        "date": "June 16, 2010",
+        "datetime": "2010-06-16",
+        "tag": "C Sharp",
+        "excerpt": "I have been working on image display using WPF.\u00a0 After searching for a week, I found good examples. Here is the small list of examples with link. 1...."
+    },
+    {
+        "id": "journey-into-multi-threading",
+        "title": "Journey into Multi Threading",
+        "date": "May 18, 2010",
+        "datetime": "2010-05-18",
+        "tag": "Article",
+        "excerpt": "Journey into Multi Threading. [pictures is taken from  http://www.tarottotes.com/images/mixed-threads2.jpg%5D  I have published a new article at..."
+    },
+    {
+        "id": "class-initialization-and-initialization-order",
+        "title": "Class Initialization and Initialization Order",
+        "date": "May 10, 2010",
+        "datetime": "2010-05-10",
+        "tag": "C Sharp",
+        "excerpt": "When Class is initialized in dot net? \u00a0At compile time or when is class is accessed for the first time. To answer this question, I have a small..."
+    },
+    {
+        "id": "dicom-image-viewer",
+        "title": "DICOM\u00a0Image\u00a0Viewer",
+        "date": "April 29, 2010",
+        "datetime": "2010-04-29",
+        "tag": "CodeProject",
+        "excerpt": "Hello All, We have posted an artile \u201cDICOM Image Viewer\u201d\u00a0 at Codeproject.com, Please visit: ..."
+    },
+    {
+        "id": "window-level",
+        "title": "Window\u00a0Level",
+        "date": "April 29, 2010",
+        "datetime": "2010-04-29",
+        "tag": "Image Processing",
+        "excerpt": "In any standard image processing application, we have something called Window Level.\u00a0\u00a0On the net for Window Level, I didn\u2019t get any convincing..."
+    },
+    {
+        "id": "display-rectangular-raw-images",
+        "title": "Display \u2013 Rectangular raw\u00a0images.",
+        "date": "April 27, 2010",
+        "datetime": "2010-04-27",
+        "tag": "Articles",
+        "excerpt": "We have updated the article at Codeproject.com.\u00a0 Updated article explain how to view the rectangular raw Images. Please visit: Rectangular raw Image..."
+    },
+    {
+        "id": "pnp-catalog-at-a-glance",
+        "title": "PNP Catalog at\u00a0a\u00a0Glance",
+        "date": "April 26, 2010",
+        "datetime": "2010-04-26",
+        "tag": "Patterns &amp; Practices",
+        "excerpt": "Here is an article about resources available on Internet about Patterns and Practices. Article lists all links to various downloads and homepages of..."
+    },
+    {
+        "id": "raw-image-wpf",
+        "title": "Raw Image + WPF",
+        "date": "April 18, 2010",
+        "datetime": "2010-04-18",
+        "tag": "Article",
+        "excerpt": "Hello All, We have published an article about opening a row Image in WPF at codeproject.com. Please visit the link: ..."
+    },
+    {
+        "id": "character-occurrence",
+        "title": "Character\u00a0occurrence",
+        "date": "April 18, 2010",
+        "datetime": "2010-04-18",
+        "tag": "C Sharp",
+        "excerpt": "How do you count all the occurances in a string? Lets a string is \u201caabbccdda\u201d, answer should be a ->3, b->2, c->2, d->2. There may be many ways to..."
+    },
+    {
+        "id": "bitwise-operation",
+        "title": "Bitwise\u00a0Operation",
+        "date": "March 31, 2010",
+        "datetime": "2010-03-31",
+        "tag": "C Sharp",
+        "excerpt": "When you are reading the Byte from the hardware and you are interested in knowing which bit is ON and which is OFF. So one can perform the bitwise..."
+    },
+    {
+        "id": "polar-image",
+        "title": "Polar Image",
+        "date": "March 5, 2009",
+        "datetime": "2009-03-05",
+        "tag": "CodeProject",
+        "excerpt": "We have pusblished an article on polar Image on CodeProject. Click here to know learn more on: POLAR IMAGE."
+    },
+    {
+        "id": "windows-activation",
+        "title": "Windows Activation",
+        "date": "March 5, 2009",
+        "datetime": "2009-03-05",
+        "tag": "Windows XP activation",
+        "excerpt": "To Check the Windows XP Activation status: Run the following command: oobe/msoobe /a"
+    },
+    {
+        "id": "microsoft-tag",
+        "title": "Microsoft Tag",
+        "date": "February 24, 2009",
+        "datetime": "2009-02-24",
+        "tag": "Microsoft Tag",
+        "excerpt": "Microsoft has come up with a new to share your contact information. Just get the Microsoft tag and print it on your Ads, On you product brochure, Or..."
+    },
+    {
+        "id": "what-is-net-dot-net",
+        "title": "What is \u201c.net\u201d (Dot net)",
+        "date": "January 4, 2009",
+        "datetime": "2009-01-04",
+        "tag": "Dot Net Framework",
+        "excerpt": "Here is a nice post on .net to read more, follow this link What is Dot net"
+    },
+    {
+        "id": "top-10-net-stories-of-2008",
+        "title": "Top 10 .net Stories of 2008",
+        "date": "January 4, 2009",
+        "datetime": "2009-01-04",
+        "tag": "Microsoft Dot Net",
+        "excerpt": "Welcome 2009 and here is the Top 10 .net stories of 2008. Visit this link to read more. Top 10 Dot Net Stories of 2008"
+    },
+    {
+        "id": "printing-hello-world",
+        "title": "Printing Hello World",
+        "date": "December 17, 2008",
+        "datetime": "2008-12-17",
+        "tag": "C Sharp",
+        "excerpt": "Hello All, Thanks for visiting my Blog. Me, a graduate in Mechanical Engineering and a Software Engineer by profession. Here one can find my findings..."
     }
 ]

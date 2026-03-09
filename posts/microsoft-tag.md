@@ -1,0 +1,2 @@
+Microsoft has come up with a new to share your contact information. Just get the Microsoft tag and print it on your Ads, On you product brochure, Or on your Product. If user like to contact, user will snap that book mark. Microsoft tag reader which is a free, installed on his phone will find out all information. Learn more about the same at  
+<http://www.microsoft.com/tag/content/overview/>
