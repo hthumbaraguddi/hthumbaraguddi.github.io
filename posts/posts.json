@@ -1,0 +1,26 @@
+[
+  {
+    "id": "power-of-teamwork",
+    "title": "The Power of Teamwork and Shared Leadership in Training Programs",
+    "date": "June 17, 2023",
+    "datetime": "2023-06-17",
+    "tag": "Leadership",
+    "excerpt": "When you volunteer for a task, you may learn individually, but when you encourage others to join and work together, you not only learn, but also build a motivated team and foster a healthy group dynamic."
+  },
+  {
+    "id": "welcome-to-my-blog",
+    "title": "Welcome to my shiny new digital home",
+    "date": "March 9, 2026",
+    "datetime": "2026-03-09",
+    "tag": "Personal",
+    "excerpt": "Setting up this space has been a journey. Learn why I chose to build a custom static blog and what you can expect to find here as I document my journey."
+  },
+  {
+    "id": "github-pages-setup",
+    "title": "The Ultimate Guide to GitHub Pages",
+    "date": "March 7, 2026",
+    "datetime": "2026-03-07",
+    "tag": "Tutorial",
+    "excerpt": "A comprehensive look at hosting your website securely and completely free utilizing GitHub's generous infrastructure and automated deployments."
+  }
+]

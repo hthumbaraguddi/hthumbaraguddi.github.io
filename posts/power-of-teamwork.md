@@ -1,0 +1,20 @@
+**When you volunteer for a task, you may learn individually, but when you encourage others to join and work together, you not only learn, but also build a motivated team and foster a healthy group dynamic.**
+
+<figure style="margin: 2rem 0; text-align: center;">
+    <img src="./images/pexels-photo-1595385.jpeg" alt="group of people watching on laptop" style="margin: 0; margin-bottom: 0.5rem; max-width: 100%; border-radius: 16px;">
+    <figcaption style="color: var(--text-secondary); font-size: 0.9rem;">Photo by Fox on <a href="https://www.pexels.com/photo/group-of-people-watching-on-laptop-1595385/" target="_blank" style="color: var(--accent-color);">Pexels.com</a></figcaption>
+</figure>
+
+In various training programs, we often find ourselves aiming to quickly acquire new skills that can be implemented in future projects. Many of us have encountered scenarios where we need to solve problems as a team. However, it's not uncommon to witness hesitancy among team members when it comes to taking the lead. In such cases, someone might simply say, "Could someone please volunteer for this task and lead us?" The expectation is that someone enthusiastic will step up while others can sit back and relax, possibly preoccupied with other work. This situation arises not only in corporate-sponsored training but also in executive programs where participants have invested their own money.
+
+In some of these training sessions, I have volunteered myself and completed the tasks at hand. While the satisfaction of achieving the goal is momentarily gratifying, it often comes at the cost of burning the midnight oil. This may be more acceptable in technical courses, but I have also witnessed the same dynamics in leadership or management training. When you volunteer for group activities in these settings, you may end up learning on your own but lose the overall effectiveness of the team. If you have chosen to take a leadership course, it signifies a desire to lead and initiate change. In such situations, volunteering for group activities where others fail to join due to inertia leads to collective failure, rendering the course ineffective.
+
+Let's delve deeper into this notion. When you decide to attend leadership training, the objective goes beyond your personal learning; it involves guiding others toward the same path of growth. Most group activities in these programs are designed to emphasize the importance of specific concepts through rational discussions. By volunteering for such activities, you will merely gather information from Chat GPT or simple Google searches, completing the task by filling in forms with content from the public domain. However, you will never capture the diverse perspectives present in the room, nor will you be able to influence their viewpoints with your own. This approach ultimately results in a disaster. Furthermore, down the line, when you work with the same people, and the time comes to apply the management tools learned, no one will support you in achieving your goals. Your intentions for positive change will end up collecting dust instead of shining brightly.
+
+This entire narrative can be transformed with a single pause and a simple question. Since it is a group activity, rather than volunteering to work on the task entirely by yourself, volunteer to contribute a portion of the work and spend time bringing everyone together, encouraging them to share their thoughts and ideas to complete the task. Winning may not be immediate, but you will create a like-minded community or inspire people to think in the same direction as you, for the greater good.
+
+Now, how can you inspire and motivate others? Remember, they are already motivated, just as you are, evident in their presence in the conference room for the training. Don't they deserve recognition too?
+
+Therefore, instead of solely volunteering for the group activity, volunteer yourself to rally everyone toward a unified direction, fostering a harmonious thought process.
+
+**Embrace the joy of collective learning and growth.**
