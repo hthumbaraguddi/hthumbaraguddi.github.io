@@ -1,5 +1,13 @@
 [
     {
+        "id": "welcome-to-my-blog",
+        "title": "Welcome to my shiny new digital home",
+        "date": "March 9, 2026",
+        "datetime": "2026-03-09",
+        "tag": "Personal",
+        "excerpt": "Setting up this space has been a journey. Learn why I chose to build a custom static blog and what you can expect to find here as I document my journey."
+    },
+    {
         "id": "power-of-teamwork",
         "title": "The Power of Teamwork and Shared Leadership in Training Programs",
         "date": "June 17, 2023",
@@ -8,11 +16,75 @@
         "excerpt": "When you volunteer for a task, you may learn individually, but when you encourage others to join and work together, you not only learn, but also build a motivated team and foster a healthy group dynamic."
     },
     {
-        "id": "welcome-to-my-blog",
-        "title": "Welcome to my shiny new digital home",
-        "date": "March 9, 2026",
-        "datetime": "2026-03-09",
-        "tag": "Personal",
-        "excerpt": "Setting up this space has been a journey. Learn why I chose to build a custom static blog and what you can expect to find here as I document my journey."
+        "id": "the-power-of-conversation-building-relationships-in-the-workplace",
+        "title": "The Power of Conversation: Building Relationships in the Workplace",
+        "date": "May 30, 2023",
+        "datetime": "2023-05-30",
+        "tag": "Workplace",
+        "excerpt": "Photo by Alexander Suhorucov on  Pexels.com \n \n Recently, I received a call from my friend, and during our conversation, he brought up a difficult..."
+    },
+    {
+        "id": "lessons-learned-a-surprising-solution-and-the-value-of-customer-experience",
+        "title": "Lessons Learned: A Surprising Solution and the Value of Customer Experience",
+        "date": "May 30, 2023",
+        "datetime": "2023-05-30",
+        "tag": "Experience",
+        "excerpt": "Recently, I encountered a challenging situation that turned out to be a great learning experience. Although it\u2019s not a topic people typically..."
+    },
+    {
+        "id": "data-binding",
+        "title": "Data Binding",
+        "date": "October 16, 2021",
+        "datetime": "2021-10-16",
+        "tag": "Angular2000",
+        "excerpt": "Angular#8 \n \n Similar to WPF in Angular we have Data Binding and about picture is shows,  4 types. Interpolation, property Binding, Event Binding and..."
+    },
+    {
+        "id": "ngswitch-directive",
+        "title": "ngSwitch directive",
+        "date": "October 16, 2021",
+        "datetime": "2021-10-16",
+        "tag": "Angular2000",
+        "excerpt": "Angular#7 \n Here is a simple example of ngSwitch directive. Following code is just for example and may not good  as a solution.  \n import {..."
+    },
+    {
+        "id": "ngfor",
+        "title": "ngFor",
+        "date": "October 15, 2021",
+        "datetime": "2021-10-15",
+        "tag": "Angular2000",
+        "excerpt": "Angular#5 \n Following code block iterate over collection and show on UI using ngFor Directive \n import { Component, OnInit } from..."
+    },
+    {
+        "id": "ngclass",
+        "title": "ngClass",
+        "date": "October 15, 2021",
+        "datetime": "2021-10-15",
+        "tag": "Angular2000",
+        "excerpt": "Angular#4 \n ngClass is another build in directive and is similar to ngStyle. Based on condition, class is attached as here  return of isSunday()  \n..."
+    },
+    {
+        "id": "ngstyle",
+        "title": "ngStyle",
+        "date": "October 15, 2021",
+        "datetime": "2021-10-15",
+        "tag": "Angular2000",
+        "excerpt": "Angular#3 \n ngStyle directive can be used to alter the style of an element. One important to understand that property binding is not the same as..."
+    },
+    {
+        "id": "ngif-directives",
+        "title": "ngIf Directives",
+        "date": "October 15, 2021",
+        "datetime": "2021-10-15",
+        "tag": "Angular2000",
+        "excerpt": "Angular#2 \n import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-directive-example',\n  template: `\n  <div>\n    <p>..."
+    },
+    {
+        "id": "adding-a-component-to-angular",
+        "title": "Adding a component to angular",
+        "date": "October 14, 2021",
+        "datetime": "2021-10-14",
+        "tag": "Angular2000",
+        "excerpt": "Angular#1 \n Adding in angular is quit easy and Just running following command in terminal: \n ng generate component new-component-name \n But many a..."
     }
 ]
