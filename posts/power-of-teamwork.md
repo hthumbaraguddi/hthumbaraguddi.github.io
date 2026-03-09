@@ -1,7 +1,7 @@
 **When you volunteer for a task, you may learn individually, but when you encourage others to join and work together, you not only learn, but also build a motivated team and foster a healthy group dynamic.**
 
 <figure style="margin: 2rem 0; text-align: center;">
-    <img src="./images/pexels-photo-1595385.jpeg" alt="group of people watching on laptop" style="margin: 0; margin-bottom: 0.5rem; max-width: 100%; border-radius: 16px;">
+    <img src="../images/pexels-photo-1595385.jpeg" alt="group of people watching on laptop" style="margin: 0; margin-bottom: 0.5rem; max-width: 100%; border-radius: 16px;">
     <figcaption style="color: var(--text-secondary); font-size: 0.9rem;">Photo by Fox on <a href="https://www.pexels.com/photo/group-of-people-watching-on-laptop-1595385/" target="_blank" style="color: var(--accent-color);">Pexels.com</a></figcaption>
 </figure>
 
