@@ -182,7 +182,7 @@
         // Fetch posts metadata and populate homepage grid
         document.addEventListener('DOMContentLoaded', async () => {
             try {
-                const response = await fetch('./posts/posts.json');
+                const response = await fetch(`./posts/posts.json?v=${new Date().getTime()}`);
                 allPosts = await response.json();
 
                 // Sort posts by date descending
