@@ -39,9 +39,46 @@
                 reflections on continuous learning.</p>
         </header>
 
-        <section class="posts-grid" id="posts-grid">
-            <!-- Posts will be generated dynamically via JS below -->
-        </section>
+        <div class="layout-wrapper">
+            <div class="main-content">
+                <section class="posts-grid" id="posts-grid">
+                    <!-- Posts will be generated dynamically via JS below -->
+                </section>
+            </div>
+            <aside class="sidebar">
+                <div class="widget">
+                    <h3 class="widget-title">Calendar <i data-lucide="calendar"
+                            style="width:1.2rem; vertical-align:middle; float:right;"></i></h3>
+                    <div class="calendar">
+                        <div class="calendar-header">
+                            <button class="calendar-btn" onclick="prevMonth()"><i data-lucide="chevron-left"
+                                    style="width:1rem;"></i></button>
+                            <span id="calendar-month-year"></span>
+                            <button class="calendar-btn" onclick="nextMonth()"><i data-lucide="chevron-right"
+                                    style="width:1rem;"></i></button>
+                        </div>
+                        <div class="calendar-grid">
+                            <div class="calendar-day-header">Su</div>
+                            <div class="calendar-day-header">Mo</div>
+                            <div class="calendar-day-header">Tu</div>
+                            <div class="calendar-day-header">We</div>
+                            <div class="calendar-day-header">Th</div>
+                            <div class="calendar-day-header">Fr</div>
+                            <div class="calendar-day-header">Sa</div>
+                        </div>
+                        <div class="calendar-grid" id="calendar-days">
+                            <!-- Days generated via JS -->
+                        </div>
+                    </div>
+                    <div id="calendar-filter-msg"
+                        style="margin-top: 1rem; font-size: 0.9rem; color: var(--accent-color); text-align: center; display: none;">
+                        Showing posts for <span id="calendar-filter-date" style="font-weight: bold;"></span>.<br>
+                        <a href="#" onclick="clearFilter(event)"
+                            style="color: var(--text-secondary); text-decoration: underline; margin-top: 0.5rem; display: inline-block;">Clear</a>
+                    </div>
+                </div>
+            </aside>
+        </div>
     </main>
 
     <footer>
@@ -52,51 +89,138 @@
     <script>
         lucide.createIcons();
 
+        // Globals for Calendar & Posts
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+        let allPosts = [];
+
+        function renderCalendar() {
+            const monthYear = document.getElementById('calendar-month-year');
+            const daysGrid = document.getElementById('calendar-days');
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+            monthYear.textContent = `${months[currentMonth]} ${currentYear}`;
+            daysGrid.innerHTML = '';
+
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+            // Empty slots
+            for (let i = 0; i < firstDay; i++) {
+                daysGrid.innerHTML += `<div class="calendar-day empty"></div>`;
+            }
+
+            // Days
+            for (let i = 1; i <= daysInMonth; i++) {
+                const m = String(currentMonth + 1).padStart(2, '0');
+                const d = String(i).padStart(2, '0');
+                const dateStr = `${currentYear}-${m}-${d}`;
+
+                const hasPost = allPosts.some(p => p.datetime.startsWith(dateStr));
+                const cssClass = hasPost ? 'calendar-day has-post' : 'calendar-day';
+
+                daysGrid.innerHTML += `<div class="${cssClass}" data-date="${dateStr}">${i}</div>`;
+            }
+
+            // Click events
+            document.querySelectorAll('.calendar-day:not(.empty)').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    const dateStr = e.target.getAttribute('data-date');
+                    filterPostsByDate(dateStr);
+                });
+            });
+            lucide.createIcons();
+        }
+
+        window.prevMonth = function () {
+            currentMonth--;
+            if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+            renderCalendar();
+        };
+
+        window.nextMonth = function () {
+            currentMonth++;
+            if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+            renderCalendar();
+        };
+
+        function filterPostsByDate(dateStr) {
+            const filtered = allPosts.filter(p => p.datetime.startsWith(dateStr));
+            renderGrid(filtered);
+
+            const msg = document.getElementById('calendar-filter-msg');
+            msg.style.display = 'block';
+            document.getElementById('calendar-filter-date').textContent = dateStr;
+        }
+
+        window.clearFilter = function (e) {
+            if (e) e.preventDefault();
+            document.getElementById('calendar-filter-msg').style.display = 'none';
+            renderGrid(allPosts);
+        };
+
+        function renderGrid(postsToRender) {
+            const grid = document.getElementById('posts-grid');
+            if (postsToRender.length === 0) {
+                grid.innerHTML = '<p>No posts found for this selection.</p>';
+                return;
+            }
+
+            grid.innerHTML = postsToRender.map(post => `
+                <a href="posts/post.html?id=${post.id}" class="post-card">
+                    <div class="post-meta">
+                        <span class="tag">${post.tag}</span>
+                        <time datetime="${post.datetime}">${post.date}</time>
+                    </div>
+                    <h2 class="post-title">${post.title}</h2>
+                    <p class="post-excerpt">${post.excerpt}</p>
+                </a>
+            `).join('');
+
+            // Observers
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            Array.from(grid.children).forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
+                observer.observe(el);
+            });
+        }
+
         // Fetch posts metadata and populate homepage grid
         document.addEventListener('DOMContentLoaded', async () => {
-            const grid = document.getElementById('posts-grid');
             try {
                 const response = await fetch('./posts/posts.json');
-                const posts = await response.json();
+                allPosts = await response.json();
 
-                if (posts.length === 0) {
-                    grid.innerHTML = '<p>No posts yet.</p>';
-                    return;
+                // Sort posts by date descending
+                allPosts.sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
+
+                // Init calendar with latest post's month or current month
+                if (allPosts.length > 0) {
+                    const latestDate = new Date(allPosts[0].datetime);
+                    if (!isNaN(latestDate.getTime())) {
+                        currentMonth = latestDate.getMonth();
+                        currentYear = latestDate.getFullYear();
+                    }
                 }
 
-                grid.innerHTML = posts.map(post => `
-                    <a href="posts/post.html?id=${post.id}" class="post-card">
-                        <div class="post-meta">
-                            <span class="tag">${post.tag}</span>
-                            <time datetime="${post.datetime}">${post.date}</time>
-                        </div>
-                        <h2 class="post-title">${post.title}</h2>
-                        <p class="post-excerpt">${post.excerpt}</p>
-                    </a>
-                `).join('');
-
-                // Apply scroll animation observers on grid children manually after injection
-                const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
-                const observer = new IntersectionObserver((entries, obs) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.style.opacity = '1';
-                            entry.target.style.transform = 'translateY(0)';
-                            obs.unobserve(entry.target);
-                        }
-                    });
-                }, observerOptions);
-
-                Array.from(grid.children).forEach(el => {
-                    el.style.opacity = '0';
-                    el.style.transform = 'translateY(20px)';
-                    el.style.transition = 'all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
-                    observer.observe(el);
-                });
+                renderGrid(allPosts);
+                renderCalendar();
 
             } catch (err) {
                 console.error("Failed to load posts", err);
-                grid.innerHTML = '<p style="color:var(--text-secondary)">Cannot load posts at this time.</p>';
+                document.getElementById('posts-grid').innerHTML = '<p style="color:var(--text-secondary)">Cannot load posts at this time.</p>';
             }
         });
     </script>

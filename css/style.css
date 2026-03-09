@@ -173,7 +173,7 @@ nav {
 
 /* Main Content */
 main {
-    max-width: 800px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 4rem 2rem;
     min-height: calc(100vh - 150px);
@@ -388,4 +388,114 @@ footer {
     .post-header h1 {
         font-size: 2.25rem;
     }
+
+    .layout-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Layout for Sidebar */
+.layout-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 3rem;
+}
+
+/* Calendar Widget */
+.sidebar {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s 0.2s forwards;
+}
+
+.widget {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+}
+
+.widget-title {
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.calendar {
+    width: 100%;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.calendar-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0.25rem 0.5rem;
+    transition: var(--transition);
+}
+
+.calendar-btn:hover {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.25rem;
+    text-align: center;
+}
+
+.calendar-day-header {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.calendar-day {
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--text-secondary);
+}
+
+.calendar-day.empty {
+    cursor: default;
+    background: none;
+}
+
+.calendar-day:not(.empty):hover {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--text-primary);
+}
+
+.calendar-day.has-post {
+    color: var(--accent-color);
+    font-weight: bold;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid var(--accent-glow);
+}
+
+.calendar-day.has-post:hover {
+    background: var(--accent-color);
+    color: #fff;
 }
