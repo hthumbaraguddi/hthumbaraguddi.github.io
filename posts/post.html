@@ -129,7 +129,7 @@
                 }
 
                 // Fetch and render the markdown
-                const mdResponse = await fetch(`${postId}.md`);
+                const mdResponse = await fetch(`${postId}.md?v=${new Date().getTime()}`);
                 if (mdResponse.ok) {
                     const mdText = await mdResponse.text();
 
