@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark" data-design="glassmorphic">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Harsha's Blog | Loading...</title>
+    <meta name="description"
+        content="Read articles on software engineering, development practices, and continuous learning.">
     <!-- Premium Icons -->
     <link href="https://unpkg.com/lucide@latest/icons/lucide.css" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -17,8 +19,8 @@
     <style>
         /* Extra styles for rendered markdown specific to post.html */
         .markdown-body pre {
-            background-color: var(--nav-bg) !important;
-            border: 1px solid var(--card-border);
+            background-color: var(--nav-bg, var(--code-bg)) !important;
+            border: 1px solid var(--card-border, var(--border-color));
             border-radius: var(--border-radius);
             padding: 1.5rem;
             overflow-x: auto;
@@ -44,6 +46,10 @@
         .markdown-body h3 {
             margin-top: 3rem;
         }
+
+        [data-design="magazine"] .hljs {
+            background: var(--code-bg) !important;
+        }
     </style>
 </head>
 
@@ -53,14 +59,17 @@
 
     <nav>
         <div class="nav-container">
-            <a href="../index.html" class="logo">
-                <i data-lucide="terminal" style="color: var(--accent-color)"></i>
-                Harsha<span>Blog</span>
+            <a href="../index.html" class="logo" id="blog-logo">
+                <i data-lucide="terminal" class="logo-icon" style="color: var(--accent-color)"></i>
+                <span class="logo-text">Harsha's<span>Blog</span></span>
             </a>
             <div class="nav-links">
                 <a href="https://thumbaraguddi.in/">About</a>
                 <a href="https://github.com/hthumbaraguddi" target="_blank">GitHub</a>
-                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme">
+                <button class="design-toggle" id="design-toggle" aria-label="Switch Design" title="Switch Design">
+                    <i data-lucide="palette" style="width: 18px; height: 18px;"></i>
+                </button>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme" title="Toggle Theme">
                     <i data-lucide="sun" class="sun-icon"></i>
                 </button>
             </div>
@@ -89,7 +98,8 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 Harsha. Open source on GitHub.</p>
+        <p>&copy; 2026 Harsha Thumbaraguddi. Open source on <a href="https://github.com/hthumbaraguddi"
+                target="_blank">GitHub</a>.</p>
     </footer>
 
     <script src="../js/main.js"></script>

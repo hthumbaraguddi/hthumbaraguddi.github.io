@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark" data-design="glassmorphic">
 
 <head>
     <meta charset="UTF-8">
@@ -18,14 +18,17 @@
 
     <nav>
         <div class="nav-container">
-            <a href="index.html" class="logo">
-                <i data-lucide="terminal" style="color: var(--accent-color)"></i>
-                Harsha's<span>Blog</span>
+            <a href="index.html" class="logo" id="blog-logo">
+                <i data-lucide="terminal" class="logo-icon" style="color: var(--accent-color)"></i>
+                <span class="logo-text">Harsha's<span>Blog</span></span>
             </a>
             <div class="nav-links">
                 <a href="https://thumbaraguddi.in/">About</a>
                 <a href="https://github.com/hthumbaraguddi" target="_blank">GitHub</a>
-                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme">
+                <button class="design-toggle" id="design-toggle" aria-label="Switch Design" title="Switch Design">
+                    <i data-lucide="palette" style="width: 18px; height: 18px;"></i>
+                </button>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme" title="Toggle Theme">
                     <i data-lucide="sun" class="sun-icon"></i>
                 </button>
             </div>
@@ -34,8 +37,9 @@
 
     <main>
         <header class="hero">
-            <h1>Writing on tech, life, and everything between.</h1>
-            <p>Welcome to my digital garden. Here you'll find tutorials, thoughts on software architecture, and
+            <h1 id="hero-title">Writing on tech, life, and everything between.</h1>
+            <p id="hero-subtitle">Welcome to my digital garden. Here you'll find tutorials, thoughts on software
+                architecture, and
                 reflections on continuous learning.</p>
         </header>
 
@@ -82,7 +86,8 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 thumbaraguddi. Open source on GitHub.</p>
+        <p>&copy; 2026 Harsha Thumbaraguddi. Open source on <a href="https://github.com/hthumbaraguddi"
+                target="_blank">GitHub</a>.</p>
     </footer>
 
     <script src="./js/main.js"></script>
@@ -97,6 +102,8 @@
         function renderCalendar() {
             const monthYear = document.getElementById('calendar-month-year');
             const daysGrid = document.getElementById('calendar-days');
+            if (!monthYear || !daysGrid) return;
+
             const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
             monthYear.textContent = `${months[currentMonth]} ${currentYear}`;
@@ -162,7 +169,7 @@
         function renderGrid(postsToRender) {
             const grid = document.getElementById('posts-grid');
             if (postsToRender.length === 0) {
-                grid.innerHTML = '<p>No posts found for this selection.</p>';
+                grid.innerHTML = '<p style="color:var(--text-secondary); padding: 2rem 0;">No posts found.</p>';
                 return;
             }
 
@@ -176,7 +183,6 @@
                     <p class="post-excerpt">${post.excerpt}</p>
                 </a>
             `).join('');
-
         }
 
         // Fetch posts metadata and populate homepage grid

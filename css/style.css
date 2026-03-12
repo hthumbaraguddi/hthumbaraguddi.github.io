@@ -1,6 +1,90 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+/*
+ * Unified Style — Loads the active design theme
+ * Design is controlled by [data-design] attribute on <html>
+ * Two designs: "glassmorphic" (original) and "magazine" (Substack-style)
+ * Color mode is controlled by [data-theme] attribute: "dark" or "light"
+ */
 
-:root {
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+/* ================================================
+   COMMON — Shared Reset & Base
+   ================================================ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ================================================
+   DESIGN SWITCHER BUTTON
+   ================================================ */
+.design-toggle {
+    background: none;
+    border: 1px solid var(--card-border, var(--border-color, rgba(255, 255, 255, 0.1)));
+    color: var(--text-secondary);
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    position: relative;
+}
+
+.design-toggle:hover {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.design-toggle svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* ================================================
+   ============================================
+   GLASSMORPHIC DESIGN
+   ============================================
+   ================================================ */
+
+/* --- Glassmorphic Color Tokens --- */
+[data-design="glassmorphic"] {
     --bg-color: #0f1115;
     --text-primary: #e2e8f0;
     --text-secondary: #94a3b8;
@@ -9,12 +93,12 @@
     --card-bg: rgba(30, 41, 59, 0.4);
     --card-border: rgba(255, 255, 255, 0.08);
     --nav-bg: rgba(15, 17, 21, 0.8);
-
     --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     --border-radius: 16px;
+    font-family: 'Outfit', sans-serif;
 }
 
-[data-theme="light"] {
+[data-design="glassmorphic"][data-theme="light"] {
     --bg-color: #f8fafc;
     --text-primary: #0f172a;
     --text-secondary: #475569;
@@ -25,23 +109,8 @@
     --nav-bg: rgba(248, 250, 252, 0.8);
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Outfit', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-primary);
-    line-height: 1.6;
-    transition: background-color 0.4s ease, color 0.4s ease;
-    overflow-x: hidden;
-}
-
-/* Background Gradients */
-.bg-gradient {
+/* --- Glassmorphic Background Gradients --- */
+[data-design="glassmorphic"] .bg-gradient {
     position: fixed;
     top: -20%;
     left: -10%;
@@ -55,7 +124,7 @@ body {
     animation: float 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.bg-gradient-2 {
+[data-design="glassmorphic"] .bg-gradient-2 {
     position: fixed;
     bottom: -20%;
     right: -10%;
@@ -82,8 +151,8 @@ body {
     }
 }
 
-/* Navigation */
-nav {
+/* --- Glassmorphic Navigation --- */
+[data-design="glassmorphic"] nav {
     position: sticky;
     top: 0;
     width: 100%;
@@ -96,7 +165,7 @@ nav {
     transition: var(--transition);
 }
 
-.nav-container {
+[data-design="glassmorphic"] .nav-container {
     max-width: 1000px;
     margin: 0 auto;
     padding: 0 2rem;
@@ -105,7 +174,7 @@ nav {
     align-items: center;
 }
 
-.logo {
+[data-design="glassmorphic"] .logo {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--text-primary);
@@ -116,17 +185,17 @@ nav {
     gap: 0.5rem;
 }
 
-.logo span {
+[data-design="glassmorphic"] .logo span {
     color: var(--accent-color);
 }
 
-.nav-links {
+[data-design="glassmorphic"] .nav-links {
     display: flex;
     gap: 2rem;
     align-items: center;
 }
 
-.nav-links a {
+[data-design="glassmorphic"] .nav-links a {
     color: var(--text-secondary);
     text-decoration: none;
     font-weight: 500;
@@ -134,11 +203,11 @@ nav {
     position: relative;
 }
 
-.nav-links a:hover {
+[data-design="glassmorphic"] .nav-links a:hover {
     color: var(--text-primary);
 }
 
-.nav-links a::after {
+[data-design="glassmorphic"] .nav-links a::after {
     content: '';
     position: absolute;
     width: 0;
@@ -149,11 +218,12 @@ nav {
     transition: var(--transition);
 }
 
-.nav-links a:hover::after {
+[data-design="glassmorphic"] .nav-links a:hover::after {
     width: 100%;
 }
 
-.theme-toggle {
+[data-design="glassmorphic"] .theme-toggle,
+[data-design="glassmorphic"] .design-toggle {
     background: none;
     border: none;
     color: var(--text-secondary);
@@ -166,20 +236,21 @@ nav {
     transition: var(--transition);
 }
 
-.theme-toggle:hover {
+[data-design="glassmorphic"] .theme-toggle:hover,
+[data-design="glassmorphic"] .design-toggle:hover {
     background: var(--card-bg);
     color: var(--text-primary);
 }
 
-/* Main Content */
-main {
+/* --- Glassmorphic Main Content --- */
+[data-design="glassmorphic"] main {
     max-width: 1100px;
     margin: 0 auto;
     padding: 4rem 2rem;
     min-height: calc(100vh - 150px);
 }
 
-header.hero {
+[data-design="glassmorphic"] header.hero {
     text-align: center;
     margin-bottom: 5rem;
     opacity: 0;
@@ -187,7 +258,7 @@ header.hero {
     animation: fadeUp 0.8s forwards;
 }
 
-header.hero h1 {
+[data-design="glassmorphic"] header.hero h1 {
     font-size: 4rem;
     font-weight: 700;
     line-height: 1.1;
@@ -199,22 +270,15 @@ header.hero h1 {
     letter-spacing: -1px;
 }
 
-header.hero p {
+[data-design="glassmorphic"] header.hero p {
     font-size: 1.25rem;
     color: var(--text-secondary);
     max-width: 600px;
     margin: 0 auto;
 }
 
-@keyframes fadeUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Posts Grid */
-.posts-grid {
+/* --- Glassmorphic Posts Grid --- */
+[data-design="glassmorphic"] .posts-grid {
     display: grid;
     gap: 2rem;
     opacity: 0;
@@ -222,7 +286,7 @@ header.hero p {
     animation: fadeUp 0.8s 0.2s forwards;
 }
 
-.post-card {
+[data-design="glassmorphic"] .post-card {
     display: flex;
     flex-direction: column;
     background: var(--card-bg);
@@ -236,7 +300,7 @@ header.hero p {
     backdrop-filter: blur(10px);
 }
 
-.post-card::before {
+[data-design="glassmorphic"] .post-card::before {
     content: '';
     position: absolute;
     top: 0;
@@ -248,17 +312,17 @@ header.hero p {
     transition: 0.6s ease;
 }
 
-.post-card:hover::before {
+[data-design="glassmorphic"] .post-card:hover::before {
     transform: translateX(100%);
 }
 
-.post-card:hover {
+[data-design="glassmorphic"] .post-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     border-color: rgba(255, 255, 255, 0.15);
 }
 
-.post-meta {
+[data-design="glassmorphic"] .post-meta {
     font-size: 0.9rem;
     color: var(--text-secondary);
     display: flex;
@@ -267,7 +331,7 @@ header.hero p {
     align-items: center;
 }
 
-.tag {
+[data-design="glassmorphic"] .tag {
     background: rgba(59, 130, 246, 0.1);
     color: var(--accent-color);
     padding: 0.25rem 0.75rem;
@@ -276,7 +340,7 @@ header.hero p {
     font-weight: 600;
 }
 
-.post-title {
+[data-design="glassmorphic"] .post-title {
     color: var(--text-primary);
     font-size: 1.75rem;
     font-weight: 600;
@@ -284,131 +348,27 @@ header.hero p {
     line-height: 1.3;
 }
 
-.post-excerpt {
+[data-design="glassmorphic"] .post-excerpt {
     color: var(--text-secondary);
     font-size: 1.05rem;
     line-height: 1.6;
 }
 
-/* Individual Post Article Styles */
-article.post {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 0.8s forwards;
-}
-
-.post-header {
-    margin-bottom: 3rem;
-    text-align: center;
-}
-
-.post-header h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 1rem;
-}
-
-.post-content {
-    font-size: 1.15rem;
-    color: var(--text-secondary);
-}
-
-.post-content p {
-    margin-bottom: 1.5rem;
-}
-
-.post-content h2 {
-    color: var(--text-primary);
-    font-size: 2rem;
-    margin: 3rem 0 1.5rem;
-    font-weight: 600;
-}
-
-.post-content h3 {
-    color: var(--text-primary);
-    font-size: 1.5rem;
-    margin: 2rem 0 1rem;
-    font-weight: 600;
-}
-
-.post-content img {
-    max-width: 100%;
-    border-radius: var(--border-radius);
-    margin: 2rem 0;
-    border: 1px solid var(--card-border);
-}
-
-.post-content blockquote {
-    border-left: 4px solid var(--accent-color);
-    padding-left: 1.5rem;
-    margin: 2rem 0;
-    font-style: italic;
-    color: var(--text-primary);
-    background: rgba(59, 130, 246, 0.05);
-    padding: 1.5rem;
-    border-radius: 0 var(--border-radius) var(--border-radius) 0;
-}
-
-.back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-weight: 500;
-    margin-bottom: 2rem;
-    transition: var(--transition);
-}
-
-.back-link:hover {
-    color: var(--text-primary);
-    transform: translateX(-4px);
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 3rem 0;
-    color: var(--text-secondary);
-    border-top: 1px solid var(--card-border);
-    margin-top: 4rem;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    header.hero h1 {
-        font-size: 3rem;
-    }
-
-    .post-card {
-        padding: 1.5rem;
-    }
-
-    .post-header h1 {
-        font-size: 2.25rem;
-    }
-
-    .layout-wrapper {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Layout for Sidebar */
-.layout-wrapper {
+/* --- Glassmorphic Layout Wrapper + Sidebar --- */
+[data-design="glassmorphic"] .layout-wrapper {
     display: grid;
     grid-template-columns: 1fr 300px;
     gap: 3rem;
 }
 
-/* Calendar Widget */
-.sidebar {
+[data-design="glassmorphic"] .sidebar {
+    display: block;
     opacity: 0;
     transform: translateY(20px);
     animation: fadeUp 0.8s 0.2s forwards;
 }
 
-.widget {
+[data-design="glassmorphic"] .widget {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: var(--border-radius);
@@ -416,7 +376,7 @@ footer {
     backdrop-filter: blur(10px);
 }
 
-.widget-title {
+[data-design="glassmorphic"] .widget-title {
     color: var(--text-primary);
     font-size: 1.25rem;
     font-weight: 600;
@@ -425,11 +385,11 @@ footer {
     border-bottom: 1px solid var(--card-border);
 }
 
-.calendar {
+[data-design="glassmorphic"] .calendar {
     width: 100%;
 }
 
-.calendar-header {
+[data-design="glassmorphic"] .calendar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -438,7 +398,7 @@ footer {
     font-weight: 600;
 }
 
-.calendar-btn {
+[data-design="glassmorphic"] .calendar-btn {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--card-border);
     border-radius: 8px;
@@ -449,27 +409,27 @@ footer {
     transition: var(--transition);
 }
 
-.calendar-btn:hover {
+[data-design="glassmorphic"] .calendar-btn:hover {
     color: var(--accent-color);
     border-color: var(--accent-color);
     background: rgba(59, 130, 246, 0.1);
 }
 
-.calendar-grid {
+[data-design="glassmorphic"] .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 0.25rem;
     text-align: center;
 }
 
-.calendar-day-header {
+[data-design="glassmorphic"] .calendar-day-header {
     font-size: 0.8rem;
     font-weight: 600;
     color: var(--text-secondary);
     margin-bottom: 0.5rem;
 }
 
-.calendar-day {
+[data-design="glassmorphic"] .calendar-day {
     padding: 0.5rem 0;
     font-size: 0.9rem;
     border-radius: 8px;
@@ -478,24 +438,663 @@ footer {
     color: var(--text-secondary);
 }
 
-.calendar-day.empty {
+[data-design="glassmorphic"] .calendar-day.empty {
     cursor: default;
     background: none;
 }
 
-.calendar-day:not(.empty):hover {
+[data-design="glassmorphic"] .calendar-day:not(.empty):hover {
     background: rgba(59, 130, 246, 0.1);
     color: var(--text-primary);
 }
 
-.calendar-day.has-post {
+[data-design="glassmorphic"] .calendar-day.has-post {
     color: var(--accent-color);
     font-weight: bold;
     background: rgba(59, 130, 246, 0.15);
     border: 1px solid var(--accent-glow);
 }
 
-.calendar-day.has-post:hover {
+[data-design="glassmorphic"] .calendar-day.has-post:hover {
     background: var(--accent-color);
     color: #fff;
+}
+
+/* --- Glassmorphic Article / Post Page --- */
+[data-design="glassmorphic"] article.post {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s forwards;
+}
+
+[data-design="glassmorphic"] .post-header {
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+[data-design="glassmorphic"] .post-header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+[data-design="glassmorphic"] .post-content {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+}
+
+[data-design="glassmorphic"] .post-content p {
+    margin-bottom: 1.5rem;
+}
+
+[data-design="glassmorphic"] .post-content h2 {
+    color: var(--text-primary);
+    font-size: 2rem;
+    margin: 3rem 0 1.5rem;
+    font-weight: 600;
+}
+
+[data-design="glassmorphic"] .post-content h3 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem;
+    font-weight: 600;
+}
+
+[data-design="glassmorphic"] .post-content img {
+    max-width: 100%;
+    border-radius: var(--border-radius);
+    margin: 2rem 0;
+    border: 1px solid var(--card-border);
+}
+
+[data-design="glassmorphic"] .post-content blockquote {
+    border-left: 4px solid var(--accent-color);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--text-primary);
+    background: rgba(59, 130, 246, 0.05);
+    padding: 1.5rem;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+[data-design="glassmorphic"] .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    transition: var(--transition);
+}
+
+[data-design="glassmorphic"] .back-link:hover {
+    color: var(--text-primary);
+    transform: translateX(-4px);
+}
+
+/* --- Glassmorphic Footer --- */
+[data-design="glassmorphic"] footer {
+    text-align: center;
+    padding: 3rem 0;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--card-border);
+    margin-top: 4rem;
+}
+
+/* --- Glassmorphic: Hide magazine-only elements --- */
+[data-design="glassmorphic"] .bg-gradient,
+[data-design="glassmorphic"] .bg-gradient-2 {
+    display: block;
+}
+
+/* --- Glassmorphic Responsive --- */
+@media (max-width: 768px) {
+    [data-design="glassmorphic"] header.hero h1 {
+        font-size: 3rem;
+    }
+
+    [data-design="glassmorphic"] .post-card {
+        padding: 1.5rem;
+    }
+
+    [data-design="glassmorphic"] .post-header h1 {
+        font-size: 2.25rem;
+    }
+
+    [data-design="glassmorphic"] .layout-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ================================================
+   ============================================
+   MAGAZINE DESIGN (Substack-style)
+   ============================================
+   ================================================ */
+
+/* --- Magazine Color Tokens --- */
+[data-design="magazine"] {
+    --bg-color: #ffffff;
+    --bg-secondary: #faf9f7;
+    --bg-hover: #f5f3f0;
+    --text-primary: #1a1a1a;
+    --text-secondary: #6b6b6b;
+    --text-tertiary: #999999;
+    --accent-color: #e8702a;
+    --accent-hover: #d4611e;
+    --accent-subtle: rgba(232, 112, 42, 0.08);
+    --border-color: #e8e4df;
+    --border-subtle: #f0ece7;
+    --card-border: #e8e4df;
+    --nav-bg: rgba(255, 255, 255, 0.92);
+    --code-bg: #f6f4f1;
+    --border-radius: 8px;
+    --transition: all 0.25s ease;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+[data-design="magazine"][data-theme="dark"] {
+    --bg-color: #161620;
+    --bg-secondary: #1c1c2a;
+    --bg-hover: #232336;
+    --text-primary: #e8e8e8;
+    --text-secondary: #a0a0a0;
+    --text-tertiary: #6b6b6b;
+    --accent-color: #f0833a;
+    --accent-hover: #f79452;
+    --accent-subtle: rgba(240, 131, 58, 0.1);
+    --border-color: #2a2a3e;
+    --border-subtle: #222234;
+    --card-border: #2a2a3e;
+    --nav-bg: rgba(22, 22, 32, 0.92);
+    --code-bg: #1e1e2e;
+}
+
+/* --- Magazine: Hide glassmorphic-only elements --- */
+[data-design="magazine"] .bg-gradient,
+[data-design="magazine"] .bg-gradient-2 {
+    display: none;
+}
+
+[data-design="magazine"] .sidebar {
+    display: none;
+}
+
+[data-design="magazine"] .layout-wrapper {
+    display: block;
+}
+
+/* --- Magazine Navigation --- */
+[data-design="magazine"] nav {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 64px;
+    background: var(--nav-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 100;
+    transition: var(--transition);
+}
+
+[data-design="magazine"] .nav-container {
+    max-width: 680px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+[data-design="magazine"] .logo {
+    font-family: 'Spectral', Georgia, serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    letter-spacing: -0.3px;
+    transition: var(--transition);
+}
+
+[data-design="magazine"] .logo:hover {
+    color: var(--accent-color);
+}
+
+[data-design="magazine"] .logo span {
+    color: var(--accent-color);
+}
+
+[data-design="magazine"] .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+[data-design="magazine"] .nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition);
+    position: relative;
+}
+
+[data-design="magazine"] .nav-links a:hover {
+    color: var(--text-primary);
+}
+
+[data-design="magazine"] .nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1.5px;
+    bottom: -3px;
+    left: 0;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+[data-design="magazine"] .nav-links a:hover::after {
+    width: 100%;
+}
+
+[data-design="magazine"] .theme-toggle,
+[data-design="magazine"] .design-toggle {
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    background: none;
+}
+
+[data-design="magazine"] .theme-toggle:hover,
+[data-design="magazine"] .design-toggle:hover {
+    background: var(--bg-hover);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+/* --- Magazine Main Content --- */
+[data-design="magazine"] main {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    min-height: calc(100vh - 64px - 100px);
+}
+
+[data-design="magazine"] header.hero {
+    padding: 4rem 0 3rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 0;
+    text-align: left;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fadeUp 0.6s 0.1s forwards;
+}
+
+[data-design="magazine"] header.hero h1 {
+    font-family: 'Spectral', Georgia, serif;
+    font-size: 2.75rem;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    -webkit-text-fill-color: unset;
+}
+
+[data-design="magazine"] header.hero p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    max-width: 560px;
+    margin: 0;
+}
+
+/* --- Magazine Posts Listing --- */
+[data-design="magazine"] .posts-grid {
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fadeUp 0.6s 0.25s forwards;
+}
+
+[data-design="magazine"] .post-card {
+    display: block;
+    padding: 2rem 0;
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-subtle);
+    transition: var(--transition);
+    position: relative;
+    background: none;
+    border-radius: 0;
+    overflow: visible;
+    backdrop-filter: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}
+
+[data-design="magazine"] .post-card::before {
+    display: none;
+}
+
+[data-design="magazine"] .post-card:first-child {
+    padding-top: 2.5rem;
+}
+
+[data-design="magazine"] .post-card:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border-subtle);
+}
+
+[data-design="magazine"] .post-card:hover .post-title {
+    color: var(--accent-color);
+}
+
+[data-design="magazine"] .post-meta {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--text-tertiary, var(--text-secondary));
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+[data-design="magazine"] .tag {
+    background: var(--accent-subtle);
+    color: var(--accent-color);
+    padding: 0.15rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+[data-design="magazine"] .post-title {
+    font-family: 'Spectral', Georgia, serif;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    line-height: 1.35;
+    transition: color 0.25s ease;
+    letter-spacing: -0.2px;
+}
+
+[data-design="magazine"] .post-excerpt {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* --- Magazine Article / Post Page --- */
+[data-design="magazine"] article.post {
+    padding-top: 2rem;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fadeUp 0.6s forwards;
+}
+
+[data-design="magazine"] .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-tertiary, var(--text-secondary));
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    transition: var(--transition);
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+[data-design="magazine"] .back-link:hover {
+    color: var(--accent-color);
+    transform: translateX(-3px);
+}
+
+[data-design="magazine"] .post-header {
+    margin-bottom: 3rem;
+    text-align: left;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+[data-design="magazine"] .post-header h1 {
+    font-family: 'Spectral', Georgia, serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+}
+
+/* --- Magazine Post Content --- */
+[data-design="magazine"] .post-content {
+    font-size: 1.08rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+[data-design="magazine"] .post-content p {
+    margin-bottom: 1.5rem;
+}
+
+[data-design="magazine"] .post-content h2 {
+    font-family: 'Spectral', Georgia, serif;
+    color: var(--text-primary);
+    font-size: 1.75rem;
+    margin: 2.5rem 0 1rem;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    line-height: 1.3;
+}
+
+[data-design="magazine"] .post-content h3 {
+    font-family: 'Spectral', Georgia, serif;
+    color: var(--text-primary);
+    font-size: 1.35rem;
+    margin: 2rem 0 0.75rem;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+[data-design="magazine"] .post-content img {
+    max-width: 100%;
+    border-radius: var(--border-radius);
+    margin: 2rem 0;
+    border: 1px solid var(--border-color);
+}
+
+[data-design="magazine"] .post-content blockquote {
+    border-left: 3px solid var(--accent-color);
+    padding: 0.75rem 1.25rem;
+    margin: 1.5rem 0;
+    background: var(--accent-subtle);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    font-style: italic;
+    color: var(--text-primary);
+}
+
+[data-design="magazine"] .post-content blockquote p {
+    margin-bottom: 0;
+}
+
+[data-design="magazine"] .post-content ul,
+[data-design="magazine"] .post-content ol {
+    margin: 1rem 0 1.5rem 1.5rem;
+    color: var(--text-secondary);
+}
+
+[data-design="magazine"] .post-content li {
+    margin-bottom: 0.4rem;
+}
+
+[data-design="magazine"] .post-content a {
+    color: var(--accent-color);
+    text-decoration: underline;
+    text-decoration-color: rgba(232, 112, 42, 0.3);
+    text-underline-offset: 2px;
+    transition: var(--transition);
+}
+
+[data-design="magazine"] .post-content a:hover {
+    text-decoration-color: var(--accent-color);
+}
+
+[data-design="magazine"] .post-content hr {
+    border: none;
+    height: 1px;
+    background: var(--border-color);
+    margin: 2.5rem 0;
+}
+
+/* Code blocks for magazine */
+[data-design="magazine"] .post-content pre,
+[data-design="magazine"] .markdown-body pre {
+    background-color: var(--code-bg) !important;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1.25rem 1.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-size: 0.88rem;
+    line-height: 1.65;
+}
+
+[data-design="magazine"] .post-content code,
+[data-design="magazine"] .markdown-body code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+    background: var(--code-bg);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    font-size: 0.88em;
+    color: var(--accent-color);
+}
+
+[data-design="magazine"] .post-content pre code,
+[data-design="magazine"] .markdown-body pre code {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    color: inherit;
+}
+
+/* --- Magazine Footer --- */
+[data-design="magazine"] footer {
+    max-width: 680px;
+    margin: 3rem auto 0;
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    color: var(--text-tertiary, var(--text-secondary));
+    border-top: 1px solid var(--border-color);
+    font-size: 0.85rem;
+}
+
+[data-design="magazine"] footer a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+[data-design="magazine"] footer a:hover {
+    text-decoration: underline;
+}
+
+/* --- Magazine Responsive --- */
+@media (max-width: 768px) {
+    [data-design="magazine"] header.hero {
+        padding: 3rem 0 2rem;
+    }
+
+    [data-design="magazine"] header.hero h1 {
+        font-size: 2rem;
+    }
+
+    [data-design="magazine"] header.hero p {
+        font-size: 1rem;
+    }
+
+    [data-design="magazine"] .post-title {
+        font-size: 1.25rem;
+    }
+
+    [data-design="magazine"] .post-card {
+        padding: 1.5rem 0;
+    }
+
+    [data-design="magazine"] .post-header h1 {
+        font-size: 1.85rem;
+    }
+
+    [data-design="magazine"] .post-content h2 {
+        font-size: 1.5rem;
+    }
+
+    [data-design="magazine"] .nav-container {
+        padding: 0 1rem;
+    }
+
+    [data-design="magazine"] main {
+        padding: 0 1rem;
+    }
+
+    [data-design="magazine"] .nav-links {
+        gap: 1rem;
+    }
+
+    [data-design="magazine"] .nav-links a {
+        font-size: 0.82rem;
+    }
+}
+
+@media (max-width: 480px) {
+    [data-design="magazine"] header.hero h1 {
+        font-size: 1.75rem;
+    }
+
+    [data-design="magazine"] .post-title {
+        font-size: 1.15rem;
+    }
+
+    [data-design="magazine"] .post-header h1 {
+        font-size: 1.5rem;
+    }
+
+    [data-design="magazine"] .logo {
+        font-size: 1.15rem;
+    }
 }
