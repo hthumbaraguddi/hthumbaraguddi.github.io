@@ -1,217 +1,993 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark" data-design="glassmorphic">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harsha's Blog | Thoughts & Code</title>
-    <meta name="description" content="A personal blog sharing thoughts on technology, development, and life.">
-    <!-- Premium Icons -->
-    <link href="https://unpkg.com/lucide@latest/icons/lucide.css" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="./css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harsha · Notes on Tech &amp; AI</title>
+  <meta name="description"
+    content="Frameworks, field notes, and hard-won lessons from software engineering, AI adoption, and enterprise technology.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@300;400;500&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fdfaf5;
+      --bg-alt: #f7f2e8;
+      --surface: #ffffff;
+      --surface2: #f2ede2;
+      --border: #e2d9c8;
+      --border-soft: #ede7d9;
+      --ink: #1c1610;
+      --ink-mid: #4a3f30;
+      --ink-dim: #7a6e5e;
+      --ink-muted: #a89b88;
+      --ink-faint: #d4c9b8;
+      --amber: #a06820;
+      --amber-light: #f5e8d0;
+      --amber-soft: rgba(160, 104, 32, 0.07);
+      --amber-mid: rgba(160, 104, 32, 0.18);
+      --blue: #1a5a96;
+      --blue-light: #e8f0fa;
+      --blue-soft: rgba(26, 90, 150, 0.07);
+      --teal: #156b58;
+      --teal-light: #e4f4f0;
+      --teal-soft: rgba(21, 107, 88, 0.07);
+      --purple: #5a3a9a;
+      --purple-light: #ede8fa;
+      --purple-soft: rgba(90, 58, 154, 0.07);
+      --green: #2e7a2e;
+      --green-light: #e6f4e6;
+      --green-soft: rgba(46, 122, 46, 0.07);
+      --rose: #a83030;
+      --rose-light: #fae8e8;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 17px;
+      min-height: 100vh;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(253, 250, 245, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      height: 54px;
+      display: flex;
+      align-items: center;
+      padding: 0 40px;
+      gap: 28px;
+    }
+
+    .brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .brand span {
+      color: var(--amber);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    .nav-links a.active {
+      color: var(--amber);
+    }
+
+    .topbar-right {
+      margin-left: auto;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .search-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 6px 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--ink-mid);
+      outline: none;
+      width: 190px;
+      transition: border-color 0.18s;
+    }
+
+    .search-box::placeholder {
+      color: var(--ink-muted);
+    }
+
+    .search-box:focus {
+      border-color: rgba(160, 104, 32, 0.4);
+    }
+
+    .view-toggle {
+      display: flex;
+      gap: 5px;
+    }
+
+    .vt-btn {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--ink-muted);
+      transition: all 0.18s;
+    }
+
+    .vt-btn:hover,
+    .vt-btn.active {
+      border-color: rgba(160, 104, 32, 0.35);
+      color: var(--amber);
+      background: var(--amber-soft);
+    }
+
+    /* ── PAGE ── */
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 56px 40px 100px;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      max-width: 620px;
+      margin-bottom: 48px;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .masthead-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 12px;
+    }
+
+    .masthead-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(30px, 4vw, 46px);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.12;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .masthead-title em {
+      font-style: italic;
+      color: var(--amber);
+    }
+
+    .masthead-desc {
+      font-size: 18px;
+      color: var(--ink-dim);
+      font-style: italic;
+      line-height: 1.65;
+    }
+
+    .masthead-rule {
+      border: none;
+      border-top: 1px solid var(--border-soft);
+      margin: 24px 0 0;
+      max-width: 240px;
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      display: flex;
+      gap: 7px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+      align-items: center;
+      animation: fadeUp 0.4s ease 0.08s both;
+    }
+
+    .filter-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-right: 2px;
+    }
+
+    .filter-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 13px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--ink-muted);
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+
+    .filter-btn:hover {
+      border-color: rgba(160, 104, 32, 0.3);
+      color: var(--ink-mid);
+    }
+
+    .filter-btn.active {
+      border-color: rgba(160, 104, 32, 0.4);
+      background: var(--amber-light);
+      color: var(--amber);
+    }
+
+    /* ── FEATURED ── */
+    .featured {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--amber);
+      border-radius: 8px;
+      padding: 32px 36px;
+      margin-bottom: 32px;
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 32px;
+      align-items: center;
+      cursor: pointer;
+      transition: box-shadow 0.22s, transform 0.22s;
+      text-decoration: none;
+      animation: fadeUp 0.4s ease 0.12s both;
+    }
+
+    .featured:hover {
+      box-shadow: 0 6px 30px rgba(160, 104, 32, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .featured-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 2px;
+      background: var(--amber-light);
+      border: 1px solid rgba(160, 104, 32, 0.28);
+      color: var(--amber);
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+
+    .featured-cat {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 10px;
+    }
+
+    .featured-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .featured-abstract {
+      font-size: 16px;
+      color: var(--ink-dim);
+      font-style: italic;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .featured-meta {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .post-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--ink-muted);
+      letter-spacing: 0.06em;
+    }
+
+    .post-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      padding: 3px 8px;
+      border-radius: 10px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--ink-muted);
+    }
+
+    .featured-art {
+      background: var(--bg-alt);
+      border: 1px solid var(--border-soft);
+      border-radius: 6px;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .art-glyph {
+      font-family: 'Playfair Display', serif;
+      font-size: 64px;
+      font-weight: 700;
+      color: var(--amber);
+      opacity: 0.1;
+      position: absolute;
+      line-height: 1;
+    }
+
+    .art-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0 12px;
+      line-height: 1.6;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-soft);
+    }
+
+    /* ── GRID ── */
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 1fr;
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+
+    .post-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 22px;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .post-card:hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+      transform: translateY(-2px);
+      border-color: rgba(160, 104, 32, 0.25);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .card-category {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 2px;
+      border: 1px solid;
+    }
+
+    .card-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--ink-faint);
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.25;
+      margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      line-clamp: 2;
+      overflow: hidden;
+    }
+
+    .card-abstract {
+      font-size: 14px;
+      color: var(--ink-dim);
+      font-style: italic;
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      line-clamp: 3;
+      overflow: hidden;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .card-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--ink-muted);
+    }
+
+    .card-arrow {
+      font-size: 14px;
+      color: var(--ink-faint);
+      transition: color 0.18s, transform 0.18s;
+    }
+
+    .post-card:hover .card-arrow {
+      color: var(--amber);
+      transform: translateX(3px);
+    }
+
+    /* ── LIST VIEW ── */
+    .posts-list {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+
+    .list-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 18px 22px;
+      display: grid;
+      grid-template-columns: 72px 1fr auto;
+      gap: 18px;
+      align-items: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .list-item:hover {
+      border-color: rgba(160, 104, 32, 0.25);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .list-date-col {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--ink-muted);
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .list-date-day {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: var(--ink-dim);
+      display: block;
+      line-height: 1;
+    }
+
+    .list-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .list-abstract {
+      font-size: 14px;
+      color: var(--ink-muted);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    .list-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .list-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      padding: 3px 8px;
+      border-radius: 2px;
+      border: 1px solid;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 60px 0;
+      color: var(--ink-muted);
+      font-style: italic;
+      grid-column: 1 / -1;
+    }
+
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--amber);
+      border-radius: 6px;
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-top: 40px;
+      animation: fadeUp 0.4s ease 0.3s both;
+    }
+
+    .newsletter-icon {
+      font-size: 26px;
+      flex-shrink: 0;
+    }
+
+    .newsletter-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+
+    .newsletter-desc {
+      font-size: 14px;
+      color: var(--ink-dim);
+      font-style: italic;
+    }
+
+    .newsletter-form {
+      margin-left: auto;
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .nl-input {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 8px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--ink-mid);
+      outline: none;
+      width: 210px;
+      transition: border-color 0.18s;
+    }
+
+    .nl-input::placeholder {
+      color: var(--ink-muted);
+    }
+
+    .nl-input:focus {
+      border-color: rgba(160, 104, 32, 0.4);
+    }
+
+    .nl-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      background: var(--amber);
+      border: none;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: opacity 0.18s;
+      white-space: nowrap;
+    }
+
+    .nl-btn:hover {
+      opacity: 0.88;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 960px) {
+      .posts-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .featured {
+        grid-template-columns: 1fr;
+      }
+
+      .featured-art {
+        display: none;
+      }
+
+      .newsletter {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .newsletter-form {
+        margin-left: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .posts-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page {
+        padding: 36px 20px 80px;
+      }
+
+      .topbar {
+        padding: 0 20px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <div class="bg-gradient"></div>
-    <div class="bg-gradient-2"></div>
 
-    <nav>
-        <div class="nav-container">
-            <a href="index.html" class="logo" id="blog-logo">
-                <i data-lucide="terminal" class="logo-icon" style="color: var(--accent-color)"></i>
-                <span class="logo-text">Harsha's<span>Blog</span></span>
-            </a>
-            <div class="nav-links">
-                <a href="https://thumbaraguddi.in/">About</a>
-                <a href="https://github.com/hthumbaraguddi" target="_blank">GitHub</a>
-                <button class="design-toggle" id="design-toggle" aria-label="Switch Design" title="Switch Design">
-                    <i data-lucide="palette" style="width: 18px; height: 18px;"></i>
-                </button>
-                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme" title="Toggle Theme">
-                    <i data-lucide="sun" class="sun-icon"></i>
-                </button>
-            </div>
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <a class="brand" href="index.html">Harsha<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Writing</a></li>
+      <li><a href="https://thumbaraguddi.in/" target="_blank">About</a></li>
+      <li><a href="https://github.com/hthumbaraguddi" target="_blank">GitHub</a></li>
+    </ul>
+    <div class="topbar-right">
+      <input class="search-box" type="text" id="searchInput" placeholder="Search posts…">
+      <div class="view-toggle">
+        <div class="vt-btn active" id="vt-grid" onclick="setView('grid')" title="Grid view">⊞</div>
+        <div class="vt-btn" id="vt-list" onclick="setView('list')" title="List view">☰</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="page">
+
+    <!-- MASTHEAD -->
+    <div class="masthead">
+      <div class="masthead-eyebrow">// Notes on Tech &amp; AI</div>
+      <h1 class="masthead-title">Thinking out loud about <em>tech, life &amp; everything in between</em></h1>
+      <p class="masthead-desc">A collection of tutorials, field notes, and hard-won lessons from years of programming,
+        consulting, thoughts on software architecture, and reflections on continuous learning.</p>
+      <hr class="masthead-rule">
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar" id="filterBar">
+      <span class="filter-label">Filter:</span>
+      <button class="filter-btn active" onclick="filterCategory(this,'all')">All</button>
+      <!-- Dynamic category buttons injected here -->
+    </div>
+
+    <!-- FEATURED POST -->
+    <a class="featured" href="#" id="featuredPost" style="display:none;">
+      <div>
+        <span class="featured-badge">★ Latest</span>
+        <div class="featured-cat" id="featured-cat"></div>
+        <div class="featured-title" id="featured-title"></div>
+        <div class="featured-abstract" id="featured-abstract"></div>
+        <div class="featured-meta">
+          <span class="post-date" id="featured-date"></span>
+          <span class="post-tag" id="featured-tag"></span>
         </div>
-    </nav>
+      </div>
+      <div class="featured-art">
+        <div class="art-glyph" id="featured-glyph">→</div>
+        <div class="art-label" id="featured-art-label">Latest Post</div>
+      </div>
+    </a>
 
-    <main>
-        <header class="hero">
-            <h1 id="hero-title">Writing on tech, life, and everything between.</h1>
-            <p id="hero-subtitle">Welcome to my digital garden. Here you'll find tutorials, thoughts on software
-                architecture, and
-                reflections on continuous learning.</p>
-        </header>
+    <!-- SECTION LABEL -->
+    <div class="section-label" id="sectionLabel">All Posts</div>
 
-        <div class="layout-wrapper">
-            <div class="main-content">
-                <section class="posts-grid" id="posts-grid">
-                    <!-- Posts will be generated dynamically via JS below -->
-                </section>
-            </div>
-            <aside class="sidebar">
-                <div class="widget">
-                    <h3 class="widget-title">Calendar <i data-lucide="calendar"
-                            style="width:1.2rem; vertical-align:middle; float:right;"></i></h3>
-                    <div class="calendar">
-                        <div class="calendar-header">
-                            <button class="calendar-btn" onclick="prevMonth()"><i data-lucide="chevron-left"
-                                    style="width:1rem;"></i></button>
-                            <span id="calendar-month-year"></span>
-                            <button class="calendar-btn" onclick="nextMonth()"><i data-lucide="chevron-right"
-                                    style="width:1rem;"></i></button>
-                        </div>
-                        <div class="calendar-grid">
-                            <div class="calendar-day-header">Su</div>
-                            <div class="calendar-day-header">Mo</div>
-                            <div class="calendar-day-header">Tu</div>
-                            <div class="calendar-day-header">We</div>
-                            <div class="calendar-day-header">Th</div>
-                            <div class="calendar-day-header">Fr</div>
-                            <div class="calendar-day-header">Sa</div>
-                        </div>
-                        <div class="calendar-grid" id="calendar-days">
-                            <!-- Days generated via JS -->
-                        </div>
-                    </div>
-                    <div id="calendar-filter-msg"
-                        style="margin-top: 1rem; font-size: 0.9rem; color: var(--accent-color); text-align: center; display: none;">
-                        Showing posts for <span id="calendar-filter-date" style="font-weight: bold;"></span>.<br>
-                        <a href="#" onclick="clearFilter(event)"
-                            style="color: var(--text-secondary); text-decoration: underline; margin-top: 0.5rem; display: inline-block;">Clear</a>
-                    </div>
-                </div>
-            </aside>
-        </div>
-    </main>
+    <!-- GRID VIEW -->
+    <div class="posts-grid" id="postsGrid"></div>
 
-    <footer>
-        <p>&copy; 2026 Harsha Thumbaraguddi. Open source on <a href="https://github.com/hthumbaraguddi"
-                target="_blank">GitHub</a>.</p>
-    </footer>
+    <!-- LIST VIEW -->
+    <div class="posts-list" id="postsList"></div>
 
-    <script src="./js/main.js"></script>
-    <script>
-        lucide.createIcons();
+    <!-- NEWSLETTER -->
+    <div class="newsletter">
+      <div class="newsletter-icon">✉</div>
+      <div>
+        <div class="newsletter-title">New posts, when they're ready</div>
+        <div class="newsletter-desc">No schedule. Just a note when something worth reading is published.</div>
+      </div>
+      <div class="newsletter-form">
+        <input class="nl-input" type="email" placeholder="your@email.com">
+        <button class="nl-btn">Subscribe</button>
+      </div>
+    </div>
 
-        // Globals for Calendar & Posts
-        let currentMonth = new Date().getMonth();
-        let currentYear = new Date().getFullYear();
-        let allPosts = [];
+  </div>
 
-        function renderCalendar() {
-            const monthYear = document.getElementById('calendar-month-year');
-            const daysGrid = document.getElementById('calendar-days');
-            if (!monthYear || !daysGrid) return;
+  <script>
+    // ── Tag → colour palette ──────────────────────────────────────────────────
+    const tagPalette = {
+      'personal': { color: 'var(--amber)', bg: 'var(--amber-light)', border: 'rgba(160,104,32,0.25)' },
+      'leadership': { color: 'var(--teal)', bg: 'var(--teal-light)', border: 'rgba(21,107,88,0.18)' },
+      'workplace': { color: 'var(--teal)', bg: 'var(--teal-light)', border: 'rgba(21,107,88,0.18)' },
+      'experience': { color: 'var(--green)', bg: 'var(--green-light)', border: 'rgba(46,122,46,0.18)' },
+      'python': { color: 'var(--blue)', bg: 'var(--blue-light)', border: 'rgba(26,90,150,0.18)' },
+      'c sharp': { color: 'var(--blue)', bg: 'var(--blue-light)', border: 'rgba(26,90,150,0.18)' },
+      'angular2000': { color: 'var(--rose)', bg: 'var(--rose-light)', border: 'rgba(168,48,48,0.18)' },
+      'r': { color: 'var(--teal)', bg: 'var(--teal-light)', border: 'rgba(21,107,88,0.18)' },
+      'article': { color: 'var(--ink-dim)', 'bg': 'var(--surface2)', border: 'var(--border)' },
+      'design patterns': { color: 'var(--purple)', bg: 'var(--purple-light)', border: 'rgba(90,58,154,0.18)' },
+      'wordpress': { color: 'var(--blue)', bg: 'var(--blue-light)', border: 'rgba(26,90,150,0.18)' },
+      'codeproject': { color: 'var(--green)', bg: 'var(--green-light)', border: 'rgba(46,122,46,0.18)' },
+      'image processing': { color: 'var(--teal)', bg: 'var(--teal-light)', border: 'rgba(21,107,88,0.18)' },
+    };
 
-            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    function getPalette(tag) {
+      const key = (tag || '').toLowerCase();
+      return tagPalette[key] || { color: 'var(--amber)', bg: 'var(--amber-light)', border: 'rgba(160,104,32,0.25)' };
+    }
 
-            monthYear.textContent = `${months[currentMonth]} ${currentYear}`;
-            daysGrid.innerHTML = '';
+    // ── State ──────────────────────────────────────────────────────────────────
+    let allPosts = [];
+    let currentView = 'grid';
+    let currentCategory = 'all';
+    let searchQuery = '';
+    const tagCounts = {};
 
-            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    // ── View toggle ────────────────────────────────────────────────────────────
+    function setView(v) {
+      currentView = v;
+      document.getElementById('postsGrid').style.display = v === 'grid' ? 'grid' : 'none';
+      document.getElementById('postsList').style.display = v === 'list' ? 'flex' : 'none';
+      document.getElementById('vt-grid').classList.toggle('active', v === 'grid');
+      document.getElementById('vt-list').classList.toggle('active', v === 'list');
+    }
 
-            // Empty slots
-            for (let i = 0; i < firstDay; i++) {
-                daysGrid.innerHTML += `<div class="calendar-day empty"></div>`;
-            }
+    // ── Category filter ────────────────────────────────────────────────────────
+    function filterCategory(btn, cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render();
+    }
 
-            // Days
-            for (let i = 1; i <= daysInMonth; i++) {
-                const m = String(currentMonth + 1).padStart(2, '0');
-                const d = String(i).padStart(2, '0');
-                const dateStr = `${currentYear}-${m}-${d}`;
+    // ── Search ─────────────────────────────────────────────────────────────────
+    document.getElementById('searchInput').addEventListener('input', function () {
+      searchQuery = this.value.toLowerCase();
+      render();
+    });
 
-                const hasPost = allPosts.some(p => p.datetime.startsWith(dateStr));
-                const cssClass = hasPost ? 'calendar-day has-post' : 'calendar-day';
+    // ── Render ─────────────────────────────────────────────────────────────────
+    function getFiltered() {
+      return allPosts.filter(p => {
+        const catOk = currentCategory === 'all' || p.tag.toLowerCase() === currentCategory;
+        const qOk = !searchQuery || p.title.toLowerCase().includes(searchQuery) || (p.excerpt || '').toLowerCase().includes(searchQuery);
+        return catOk && qOk;
+      });
+    }
 
-                daysGrid.innerHTML += `<div class="${cssClass}" data-date="${dateStr}">${i}</div>`;
-            }
+    function formatShortDate(dateStr) {
+      // dateStr like "2026-03-09" or "March 9, 2026"
+      const d = new Date(dateStr);
+      if (isNaN(d)) return dateStr;
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+    }
 
-            // Click events
-            document.querySelectorAll('.calendar-day:not(.empty)').forEach(el => {
-                el.addEventListener('click', (e) => {
-                    const dateStr = e.target.getAttribute('data-date');
-                    filterPostsByDate(dateStr);
-                });
-            });
-            lucide.createIcons();
-        }
+    function formatListDate(dateStr) {
+      const d = new Date(dateStr);
+      if (isNaN(d)) return { day: '--', rest: '--' };
+      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      const yr = d.getFullYear().toString().slice(2);
+      return { day: String(d.getDate()).padStart(2, '0'), rest: `${months[d.getMonth()]} '${yr}` };
+    }
 
-        window.prevMonth = function () {
-            currentMonth--;
-            if (currentMonth < 0) { currentMonth = 11; currentYear--; }
-            renderCalendar();
-        };
+    function render() {
+      const filtered = getFiltered();
+      const grid = document.getElementById('postsGrid');
+      const list = document.getElementById('postsList');
+      const label = document.getElementById('sectionLabel');
 
-        window.nextMonth = function () {
-            currentMonth++;
-            if (currentMonth > 11) { currentMonth = 0; currentYear++; }
-            renderCalendar();
-        };
+      label.textContent = currentCategory === 'all'
+        ? `All Posts (${filtered.length})`
+        : `${filtered[0]?.tag || currentCategory} (${filtered.length})`;
 
-        function filterPostsByDate(dateStr) {
-            const filtered = allPosts.filter(p => p.datetime.startsWith(dateStr));
-            renderGrid(filtered);
+      if (filtered.length === 0) {
+        grid.innerHTML = '<p class="empty-state">No posts match your search.</p>';
+        list.innerHTML = '<p class="empty-state">No posts match your search.</p>';
+        return;
+      }
 
-            const msg = document.getElementById('calendar-filter-msg');
-            msg.style.display = 'block';
-            document.getElementById('calendar-filter-date').textContent = dateStr;
-        }
+      // Grid
+      grid.innerHTML = filtered.map((post, i) => {
+        const pal = getPalette(post.tag);
+        const delay = (i * 0.04).toFixed(2);
+        return `
+        <a class="post-card" href="posts/post.html?id=${post.id}" style="animation-delay:${delay}s">
+          <div class="card-top">
+            <span class="card-category" style="color:${pal.color}; background:${pal.bg}; border-color:${pal.border}">${post.tag}</span>
+            <span class="card-num">#${String(allPosts.length - allPosts.indexOf(post)).padStart(2, '0')}</span>
+          </div>
+          <div class="card-title">${post.title}</div>
+          <div class="card-abstract">${(post.excerpt || '').slice(0, 120).replace(/\n/g, ' ')}…</div>
+          <div class="card-footer">
+            <span class="card-date">${post.date}</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>`;
+      }).join('');
 
-        window.clearFilter = function (e) {
-            if (e) e.preventDefault();
-            document.getElementById('calendar-filter-msg').style.display = 'none';
-            renderGrid(allPosts);
-        };
+      // List
+      list.innerHTML = filtered.map((post, i) => {
+        const pal = getPalette(post.tag);
+        const dt = formatListDate(post.datetime);
+        const delay = (i * 0.04).toFixed(2);
+        return `
+        <a class="list-item" href="posts/post.html?id=${post.id}" style="animation-delay:${delay}s">
+          <div class="list-date-col"><span class="list-date-day">${dt.day}</span>${dt.rest}</div>
+          <div>
+            <div class="list-title">${post.title}</div>
+            <div class="list-abstract">${(post.excerpt || '').slice(0, 90).replace(/\n/g, ' ')}…</div>
+          </div>
+          <div class="list-meta">
+            <span class="list-tag" style="color:${pal.color}; background:${pal.bg}; border-color:${pal.border}">${post.tag}</span>
+          </div>
+        </a>`;
+      }).join('');
+    }
 
-        function renderGrid(postsToRender) {
-            const grid = document.getElementById('posts-grid');
-            if (postsToRender.length === 0) {
-                grid.innerHTML = '<p style="color:var(--text-secondary); padding: 2rem 0;">No posts found.</p>';
-                return;
-            }
+    // ── Bootstrap ──────────────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const res = await fetch(`./posts/posts.json?v=${Date.now()}`);
+        allPosts = await res.json();
+        allPosts.sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
 
-            grid.innerHTML = postsToRender.map(post => `
-                <a href="posts/post.html?id=${post.id}" class="post-card">
-                    <div class="post-meta">
-                        <span class="tag">${post.tag}</span>
-                        <time datetime="${post.datetime}">${post.date}</time>
-                    </div>
-                    <h2 class="post-title">${post.title}</h2>
-                    <p class="post-excerpt">${post.excerpt}</p>
-                </a>
-            `).join('');
-        }
-
-        // Fetch posts metadata and populate homepage grid
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                const response = await fetch(`./posts/posts.json?v=${new Date().getTime()}`);
-                allPosts = await response.json();
-
-                // Sort posts by date descending
-                allPosts.sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
-
-                // Init calendar with latest post's month or current month
-                if (allPosts.length > 0) {
-                    const latestDate = new Date(allPosts[0].datetime);
-                    if (!isNaN(latestDate.getTime())) {
-                        currentMonth = latestDate.getMonth();
-                        currentYear = latestDate.getFullYear();
-                    }
-                }
-
-                renderGrid(allPosts);
-                renderCalendar();
-
-            } catch (err) {
-                console.error("Failed to load posts", err);
-                document.getElementById('posts-grid').innerHTML = '<p style="color:var(--text-secondary)">Cannot load posts at this time.</p>';
-            }
+        // Build category filter buttons from unique tags
+        const seenTags = [];
+        allPosts.forEach(p => {
+          if (p.tag && !seenTags.some(t => t.toLowerCase() === p.tag.toLowerCase())) {
+            seenTags.push(p.tag);
+          }
         });
-    </script>
+
+        const filterBar = document.getElementById('filterBar');
+        seenTags.forEach(tag => {
+          const btn = document.createElement('button');
+          btn.className = 'filter-btn';
+          btn.textContent = tag;
+          btn.onclick = () => filterCategory(btn, tag.toLowerCase());
+          filterBar.appendChild(btn);
+        });
+
+        // Populate featured post (the newest one)
+        if (allPosts.length > 0) {
+          const fp = allPosts[0];
+          const pal = getPalette(fp.tag);
+          const featuredEl = document.getElementById('featuredPost');
+          featuredEl.href = `posts/post.html?id=${fp.id}`;
+          featuredEl.style.display = 'grid';
+          document.getElementById('featured-cat').textContent = fp.tag;
+          document.getElementById('featured-cat').style.color = pal.color;
+          document.getElementById('featured-title').textContent = fp.title;
+          document.getElementById('featured-abstract').textContent = (fp.excerpt || '').slice(0, 220).replace(/\n/g, ' ') + '…';
+          document.getElementById('featured-date').textContent = fp.date;
+          document.getElementById('featured-tag').textContent = fp.tag;
+          document.getElementById('featured-glyph').textContent = fp.tag.charAt(0).toUpperCase();
+          document.getElementById('featured-art-label').textContent = fp.tag;
+        }
+
+        render();
+      } catch (err) {
+        console.error('Failed to load posts', err);
+        document.getElementById('postsGrid').innerHTML = '<p class="empty-state">Cannot load posts at this time.</p>';
+      }
+    });
+  </script>
 </body>
 
 </html>

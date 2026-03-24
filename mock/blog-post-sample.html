@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Most AI Projects Fail Before They Start — Harsha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@300;400;500&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c10;
+    --surface: #0e1420;
+    --surface2: #141c28;
+    --border: rgba(180,160,100,0.15);
+    --gold: #c8a84b;
+    --gold-dim: rgba(200,168,75,0.6);
+    --gold-glow: rgba(200,168,75,0.10);
+    --text: #e8e0d0;
+    --text-dim: #8a8070;
+    --text-muted: #4a4840;
+    --blue:   #5b9bd5;
+    --teal:   #4ec9b0;
+    --rose:   #e06c75;
+    --purple: #9b7fe8;
+    --amber:  #e6a840;
+    --green:  #6abf69;
+    --prose-max: 720px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(180,160,100,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(180,160,100,0.025) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(8,12,16,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    height: 52px;
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+    gap: 20px;
+  }
+
+  .topbar-brand {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .topbar-sep { color: var(--text-muted); font-size: 14px; }
+
+  .topbar-section {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+
+  .topbar-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .read-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  /* reading progress bar */
+  .reading-progress {
+    position: fixed;
+    top: 52px;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), #e8c870);
+    z-index: 101;
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  /* ── LAYOUT ── */
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 64px 40px 100px;
+  }
+
+  /* ── HERO ── */
+  .hero { margin-bottom: 52px; }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+  }
+
+  .category-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+    background: var(--gold-glow);
+    border: 1px solid var(--gold-dim);
+    color: var(--gold);
+  }
+
+  .meta-dot { color: var(--text-muted); font-size: 12px; }
+
+  .meta-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.12;
+    margin-bottom: 18px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-lede {
+    font-size: 20px;
+    color: var(--text-dim);
+    font-style: italic;
+    line-height: 1.65;
+    max-width: 640px;
+    margin-bottom: 28px;
+  }
+
+  .author-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+  }
+
+  .author-avatar {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple), var(--blue));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .author-name {
+    font-family: 'Crimson Pro', serif;
+    font-size: 16px;
+    color: var(--text);
+  }
+
+  .author-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 1px;
+  }
+
+  .hero-divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    opacity: 0.35;
+    margin: 36px 0;
+    max-width: 360px;
+  }
+
+  /* ── PROSE ── */
+  .prose { max-width: var(--prose-max); }
+
+  .prose h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 48px 0 16px;
+    line-height: 1.2;
+    position: relative;
+    padding-left: 18px;
+  }
+
+  .prose h2::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 6px;
+    width: 3px;
+    height: calc(100% - 8px);
+    background: var(--gold);
+    border-radius: 2px;
+    opacity: 0.7;
+  }
+
+  .prose h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--text);
+    margin: 32px 0 12px;
+  }
+
+  .prose p {
+    color: var(--text-dim);
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 18px;
+  }
+
+  .prose strong {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .prose em { font-style: italic; }
+
+  .prose a {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold-dim);
+    transition: border-color 0.2s;
+  }
+  .prose a:hover { border-color: var(--gold); }
+
+  /* ── PULLQUOTE ── */
+  .pullquote {
+    border-left: 3px solid var(--gold);
+    padding: 10px 0 10px 24px;
+    margin: 36px 0;
+  }
+
+  .pullquote-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .pullquote-attr {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── CALLOUT BOXES ── */
+  .callout {
+    border-radius: 6px;
+    padding: 20px 22px;
+    margin: 28px 0;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    border: 1px solid;
+  }
+
+  .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+
+  .callout-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+
+  .callout-text {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text-dim);
+  }
+
+  .callout-text strong { color: var(--text); }
+
+  .callout.gold   { background: rgba(200,168,75,0.07);  border-color: rgba(200,168,75,0.3); }
+  .callout.blue   { background: rgba(91,155,213,0.07);  border-color: rgba(91,155,213,0.3); }
+  .callout.teal   { background: rgba(78,201,176,0.07);  border-color: rgba(78,201,176,0.3); }
+  .callout.purple { background: rgba(155,127,232,0.07); border-color: rgba(155,127,232,0.3); }
+  .callout.rose   { background: rgba(224,108,117,0.07); border-color: rgba(224,108,117,0.3); }
+
+  /* ── CODE BLOCK ── */
+  .code-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    border-radius: 4px;
+    padding: 16px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--gold);
+    margin: 22px 0;
+    overflow-x: auto;
+    line-height: 1.75;
+  }
+
+  .code-block .cmt { color: var(--text-muted); }
+  .code-block .kw  { color: var(--blue); }
+  .code-block .str { color: var(--teal); }
+  .code-block .fn  { color: var(--purple); }
+
+  /* ── MATURITY TABLE ── */
+  .stage-list { margin: 24px 0; display: flex; flex-direction: column; gap: 10px; }
+
+  .stage-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 18px;
+    transition: border-color 0.2s;
+  }
+
+  .stage-item:hover { border-color: var(--gold-dim); }
+
+  .stage-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    flex-shrink: 0;
+    width: 32px;
+    line-height: 1;
+    margin-top: 2px;
+  }
+
+  .stage-body {}
+
+  .stage-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .stage-desc {
+    font-size: 15px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 48px 0;
+  }
+
+  /* ── TAGS ── */
+  .tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    border-radius: 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    text-transform: lowercase;
+  }
+
+  /* ── FOOTER ── */
+  .footer-card {
+    margin-top: 56px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 28px 30px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .footer-avatar {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple), var(--blue));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .footer-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+
+  .footer-bio {
+    font-size: 15px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+
+  .footer-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+    text-decoration: none;
+    padding: 4px 10px;
+    border: 1px solid var(--gold-dim);
+    border-radius: 3px;
+    transition: background 0.2s;
+    text-transform: uppercase;
+  }
+
+  .footer-link:hover { background: var(--gold-glow); }
+
+  /* ── ANIMATIONS ── */
+  .prose h2, .prose p, .callout, .code-block, .stage-item, .pullquote {
+    animation: fadeUp 0.45s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 680px) {
+    .page { padding: 40px 20px 80px; }
+    .topbar { padding: 0 20px; }
+    .hero-title { font-size: 28px; }
+    .footer-card { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="reading-progress" id="readingProgress"></div>
+
+<!-- ── TOPBAR ── -->
+<header class="topbar">
+  <span class="topbar-brand">Harsha · Notes</span>
+  <span class="topbar-sep">›</span>
+  <span class="topbar-section">AI Consulting</span>
+  <div class="topbar-right">
+    <span class="read-time">8 min read</span>
+  </div>
+</header>
+
+<!-- ── CONTENT ── -->
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-meta">
+      <span class="category-badge">AI Consulting</span>
+      <span class="meta-dot">·</span>
+      <span class="meta-date">March 23, 2026</span>
+      <span class="meta-dot">·</span>
+      <span class="meta-date">AI Maturity · Enterprise AI</span>
+    </div>
+
+    <h1 class="hero-title">Why Most AI Projects Fail<br><em>Before They Start</em></h1>
+
+    <p class="hero-lede">After auditing dozens of enterprise AI initiatives, the pattern is always the same — companies skip straight to models when the real problem is organisational readiness.</p>
+
+    <div class="author-row">
+      <div class="author-avatar">H</div>
+      <div>
+        <div class="author-name">Harsha</div>
+        <div class="author-title">AI Consultant · IT Services</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-divider"></div>
+
+  <!-- PROSE -->
+  <article class="prose">
+
+    <p>Every quarter, I walk into a new client engagement and hear some version of the same sentence: <strong>"We need to implement AI."</strong> It's usually followed by a budget, a sponsor's name, and a tight deadline. Rarely does it come with a clear answer to the more important question — <em>what problem, exactly, are we solving?</em></p>
+
+    <p>The uncomfortable truth is that most enterprise AI projects don't fail because of bad models, wrong frameworks, or insufficient compute. They fail because the organisation was never ready to absorb what AI requires: clean data, clear ownership, and a culture willing to act on model outputs rather than override them on instinct.</p>
+
+    <div class="callout gold">
+      <div class="callout-icon">💡</div>
+      <div>
+        <div class="callout-label" style="color:var(--gold)">Key Insight</div>
+        <div class="callout-text">AI failure is almost never a technology problem. It is a <strong>readiness problem</strong> — and readiness operates at five distinct levels that most organisations haven't mapped.</div>
+      </div>
+    </div>
+
+    <h2>The Five Stages Nobody Talks About</h2>
+
+    <p>Over the past two years, working across Application Development, SAP/S4HANA, Teamcenter PLM, and platforms like ServiceNow and Salesforce, I've developed a framework I call the <strong>AI Maturity Model</strong>. It's not novel in concept — maturity models have existed in software for decades — but the AI-specific version reveals something most vendors won't tell you.</p>
+
+    <p>Most clients walk in at Stage 1 or 2, believing they are at Stage 3 or 4. The gap between self-assessed and actual maturity is where projects go to die.</p>
+
+    <div class="stage-list">
+      <div class="stage-item">
+        <span class="stage-num" style="color:var(--text-muted)">1</span>
+        <div class="stage-body">
+          <div class="stage-title">Ad Hoc Exploration</div>
+          <div class="stage-desc">Individuals use AI tools on the side. No process, no governance, no shared infrastructure. Results are impressive demos that never reach production.</div>
+        </div>
+      </div>
+      <div class="stage-item">
+        <span class="stage-num" style="color:var(--blue)">2</span>
+        <div class="stage-body">
+          <div class="stage-title">Structured Pilots</div>
+          <div class="stage-desc">Dedicated teams run controlled experiments. Data is cleaner. But pilots are siloed — learnings don't transfer and each project re-solves the same infrastructure problems.</div>
+        </div>
+      </div>
+      <div class="stage-item">
+        <span class="stage-num" style="color:var(--teal)">3</span>
+        <div class="stage-body">
+          <div class="stage-title">Operational Integration</div>
+          <div class="stage-desc">AI outputs feed into real workflows. Models are monitored. Business owners understand what the model is doing and why it occasionally fails.</div>
+        </div>
+      </div>
+      <div class="stage-item">
+        <span class="stage-num" style="color:var(--gold)">4</span>
+        <div class="stage-body">
+          <div class="stage-title">Systematic Optimisation</div>
+          <div class="stage-desc">The organisation treats AI as a managed capability. Feedback loops exist. Retraining, drift detection, and model governance are standard practice.</div>
+        </div>
+      </div>
+      <div class="stage-item">
+        <span class="stage-num" style="color:var(--purple)">5</span>
+        <div class="stage-body">
+          <div class="stage-title">Transformative Intelligence</div>
+          <div class="stage-desc">AI shapes strategy. The organisation doesn't just use AI — it builds products and business models that would be impossible without it.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>What Stage 1 Looks Like From the Inside</h2>
+
+    <p>It looks like enthusiasm. A few engineers have been quietly using GitHub Copilot for months and have quietly become 30% more productive. Someone in Finance built a GPT wrapper that summarises contract clauses. The CTO saw a demo and is now convinced AI can automate entire departments.</p>
+
+    <p>The problem isn't the enthusiasm — the problem is what happens next. The CTO asks for a roadmap. The roadmap asks for a proof of concept. The PoC gets built in six weeks, impresses everyone in the boardroom, and then sits in a sandbox for the next two years because nobody agreed on who owns the model, who maintains it, or what "good enough" accuracy means for a production deployment.</p>
+
+    <div class="pullquote">
+      <div class="pullquote-text">"The PoC worked perfectly. It just never made it to production. That was eighteen months ago."</div>
+      <div class="pullquote-attr">— Head of Digital, FMCG client, Q4 2025</div>
+    </div>
+
+    <p>I've heard this sentence, or something very close to it, in approximately 70% of my initial client conversations. The PoC is rarely the problem. The PoC is a distraction from the real conversation, which is about <strong>data ownership, change management, and what the business will actually do differently</strong> when a model tells them something they didn't expect.</p>
+
+    <h2>The Diagnostic Question That Changes Everything</h2>
+
+    <p>When I start a new engagement, I ask one question before we discuss any technology: <em>"If I gave you a perfectly accurate model tomorrow — 99% accuracy, zero latency, fully deployed — what would change about how your team operates on Monday morning?"</em></p>
+
+    <p>The quality of the answer tells me everything about where the organisation actually sits on the maturity curve.</p>
+
+    <div class="callout blue">
+      <div class="callout-icon">🔍</div>
+      <div>
+        <div class="callout-label" style="color:var(--blue)">Diagnostic Framework</div>
+        <div class="callout-text">
+          <strong>Stage 1–2 answer:</strong> "We'd save a lot of time on X." (Vague. No process change implied.)<br><br>
+          <strong>Stage 3–4 answer:</strong> "The analyst would stop doing Y manually and instead review model flags each morning before the 9am standup." (Specific. Process-mapped. Owner identified.)
+        </div>
+      </div>
+    </div>
+
+    <p>Stage 3+ organisations have already done the hard work before the model exists. They've mapped the decision, identified who makes it, understood what data it requires, and designed a process that integrates model output as a first-class input — not a novelty to be overridden whenever the model disagrees with gut instinct.</p>
+
+    <h2>The Generative AI Trap</h2>
+
+    <p>2024 and 2025 introduced a new failure mode. Generative AI is <em>so</em> immediately compelling — so capable of producing impressive outputs on the first try — that it resets every organisation back to Stage 1 behaviour, regardless of how mature they were on classical ML.</p>
+
+    <p>I've watched a manufacturing client with excellent MLOps infrastructure and solid Stage 3 practices descend into ad hoc GenAI chaos within six months of their first ChatGPT enterprise license. Suddenly every department had a "GenAI initiative." Data governance went out the window. Prompt engineering became a one-person heroic effort. Nobody agreed on which LLM to use, who was responsible for hallucinations, or how to evaluate outputs.</p>
+
+    <div class="callout rose">
+      <div class="callout-icon">⚠️</div>
+      <div>
+        <div class="callout-label" style="color:var(--rose)">Common Trap</div>
+        <div class="callout-text">GenAI's low barrier to entry creates an illusion of progress. A chatbot that works in a demo is not a production system. <strong>Applying classical AI maturity thinking to GenAI is not optional — it's how you avoid the same graveyard of abandoned pilots.</strong></div>
+      </div>
+    </div>
+
+    <h2>What a Real Roadmap Looks Like</h2>
+
+    <p>A genuine AI maturity roadmap for a Stage 2 organisation doesn't start with model selection or vendor evaluation. It starts with three unglamorous questions:</p>
+
+    <div class="code-block">
+<span class="cmt">// The three questions before any AI project starts</span>
+
+<span class="kw">01.</span> Where does your cleanest, most accessible data live?
+     <span class="cmt">→ Start there. Don't boil the ocean.</span>
+
+<span class="kw">02.</span> Which decision, if made 20% faster or more accurately,
+     would create measurable business value?
+     <span class="cmt">→ That's your first use case.</span>
+
+<span class="kw">03.</span> Who in the business owns the outcome — not the model,
+     the <span class="str">outcome</span>?
+     <span class="cmt">→ If nobody raises their hand, stop. Fix this first.</span>
+    </div>
+
+    <p>The organisations I've seen succeed with AI in production share one trait: <strong>a named business owner who is accountable for outcomes and invested in the model's success.</strong> Not an IT owner. Not a data science owner. A business owner who will be in the room when the model underperforms and who has the authority to change the process around it.</p>
+
+    <div class="callout teal">
+      <div class="callout-icon">✅</div>
+      <div>
+        <div class="callout-label" style="color:var(--teal)">Takeaway</div>
+        <div class="callout-text">Before your next AI project: run the maturity diagnostic. Map the five stages. Be honest about where you are. <strong>Stage 1 work done well beats Stage 4 ambition that never ships.</strong></div>
+      </div>
+    </div>
+
+    <h2>Where to Go From Here</h2>
+
+    <p>In the next post, I'll walk through how I apply this framework specifically to <strong>SAP S/4HANA and BTP environments</strong> — where the data is often rich, the processes are well-defined, but the AI integration layer is consistently underthought. The specific challenges of master data quality, approval workflow AI augmentation, and how to handle the political complexity of AI-assisted decisions in ERP contexts.</p>
+
+    <p>If this framework resonates with a challenge you're currently navigating — or if your organisation is somewhere between Stage 1 and Stage 3 and you're trying to build the roadmap — I'd genuinely like to hear where you're stuck. The patterns repeat enough that a short conversation often unblocks months of deliberation.</p>
+
+    <!-- TAGS -->
+    <div class="tags-row">
+      <span class="tag">ai-maturity</span>
+      <span class="tag">enterprise-ai</span>
+      <span class="tag">ai-consulting</span>
+      <span class="tag">generative-ai</span>
+      <span class="tag">roadmap</span>
+      <span class="tag">change-management</span>
+      <span class="tag">sap</span>
+      <span class="tag">mlops</span>
+    </div>
+
+  </article>
+
+  <!-- AUTHOR FOOTER -->
+  <div class="footer-card">
+    <div class="footer-avatar">H</div>
+    <div>
+      <div class="footer-name">Harsha</div>
+      <div class="footer-bio">AI Consultant at an IT services firm, focused on helping enterprises adopt AI and Generative AI across Application Development, SAP/S4HANA/BTP, Teamcenter PLM, and platforms like ServiceNow, Salesforce, and Workday. Author of a five-stage AI maturity framework.</div>
+      <div class="footer-links">
+        <a class="footer-link" href="#">LinkedIn</a>
+        <a class="footer-link" href="#">All Posts</a>
+        <a class="footer-link" href="#">AI Maturity Framework ↗</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Reading progress bar
+  window.addEventListener('scroll', () => {
+    const doc = document.documentElement;
+    const scrolled = doc.scrollTop;
+    const total = doc.scrollHeight - doc.clientHeight;
+    const pct = total > 0 ? (scrolled / total) * 100 : 0;
+    document.getElementById('readingProgress').style.width = pct + '%';
+  });
+</script>
+</body>
+</html>
