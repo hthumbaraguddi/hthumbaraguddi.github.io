@@ -44,6 +44,36 @@
       --rose-light: #fae8e8;
     }
 
+    /* ── DARK THEME (Midnight/Gold Mock Aesthetic) ── */
+    :root[data-theme="dark"] {
+      --bg:           #080c10;
+      --bg-alt:       #0a0e14;
+      --surface:      #0e1420;
+      --surface2:     #141c28;
+      --border:       rgba(180, 160, 100, 0.15);
+      --border-soft:  rgba(180, 160, 100, 0.1);
+      --ink:          #e8e0d0;
+      --ink-mid:      #b0a890;
+      --ink-dim:      #8a8070;
+      --ink-muted:    #5a5850;
+      --ink-faint:    #33312c;
+      --amber:        #c8a84b;
+      --amber-light:  rgba(200, 168, 75, 0.1);
+      --amber-soft:   rgba(200, 168, 75, 0.05);
+      --amber-mid:    rgba(200, 168, 75, 0.2);
+      
+      --blue:         #5b9bd5;
+      --blue-light:   rgba(91, 155, 213, 0.1);
+      --teal:         #4ec9b0;
+      --teal-light:   rgba(78, 201, 176, 0.1);
+      --purple:       #9b7fe8;
+      --purple-light: rgba(155, 127, 232, 0.1);
+      --green:        #6abf69;
+      --green-light:  rgba(106, 191, 105, 0.1);
+      --rose:         #e06c75;
+      --rose-light:   rgba(224, 108, 117, 0.1);
+    }
+
     *,
     *::before,
     *::after {
@@ -62,6 +92,20 @@
       font-family: 'Crimson Pro', Georgia, serif;
       font-size: 17px;
       min-height: 100vh;
+      transition: background 0.35s ease, color 0.35s ease;
+      position: relative;
+    }
+
+    body[data-theme="dark"]::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(180,160,100,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(180,160,100,0.025) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 1;
     }
 
     /* ── TOPBAR ── */
@@ -69,7 +113,8 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(253, 250, 245, 0.96);
+      background: var(--bg);
+      opacity: 0.98;
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border);
       height: 54px;
@@ -150,7 +195,9 @@
     }
 
     .vt-btn {
-      width: 28px;
+      min-width: 28px;
+      width: auto;
+      padding: 0 8px;
       height: 28px;
       display: flex;
       align-items: center;
@@ -159,7 +206,10 @@
       border: 1px solid var(--border);
       border-radius: 3px;
       cursor: pointer;
-      font-size: 13px;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
       color: var(--ink-muted);
       transition: all 0.18s;
     }
@@ -742,6 +792,7 @@
     <div class="topbar-right">
       <input class="search-box" type="text" id="searchInput" placeholder="Search posts…">
       <div class="view-toggle">
+        <button class="vt-btn" id="theme-toggle" title="Toggle theme">Dark Mode</button>
         <div class="vt-btn active" id="vt-grid" onclick="setView('grid')" title="Grid view">⊞</div>
         <div class="vt-btn" id="vt-list" onclick="setView('list')" title="List view">☰</div>
       </div>
@@ -830,6 +881,28 @@
       const key = (tag || '').toLowerCase();
       return tagPalette[key] || { color: 'var(--amber)', bg: 'var(--amber-light)', border: 'rgba(160,104,32,0.25)' };
     }
+
+    // ── Theme toggle ───────────────────────────────────────────────────────────
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      const btn = document.getElementById('theme-toggle');
+      if (btn) btn.innerHTML = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    // Initialize Theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
+
+    // Bind theme toggle
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+    });
 
     // ── State ──────────────────────────────────────────────────────────────────
     let allPosts = [];
